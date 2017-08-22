@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class CKANInstance:
+class CKANInstanceRecord(models.Model):
     id = models.AutoField(primary_key=True)
 
     class Meta:

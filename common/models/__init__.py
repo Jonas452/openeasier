@@ -1,6 +1,6 @@
-__all__ = ['CKANInstance',
-           'DBConfig',
-           'DBSchema',
-           'DBTable',
-           'DBColumn',
-           'UserSchema']
+__all__ = ['CKANInstanceRecord',
+           'DBConfigRecord',
+           'DBSchemaRecord',
+           'DBTableRecord',
+           'DBColumnRecord',
+           'UserSchemaRecord']
