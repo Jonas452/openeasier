@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
-from . import views
+from .views import ResourcePanelView, ResourceSearchView
 
 urlpatterns = [
 
@@ -9,12 +9,19 @@ urlpatterns = [
         auth_views.LoginView.as_view(redirect_authenticated_user=True),
         name='login'),
 
-    # /
+    # /logout/
     url(r'^logout/$',
         auth_views.LogoutView.as_view(),
         name='logout'),
 
     # /index/resources/
-    url(r'^index/resources/$', views.index, name='resources'),
+    url(r'^index/resources/$',
+        ResourcePanelView.as_view(),
+        name='list_resource'),
+
+    # /index/resources/
+    url(r'^index/resource/$',
+        ResourceSearchView.as_view(),
+        name='add_resource'),
 
 ]

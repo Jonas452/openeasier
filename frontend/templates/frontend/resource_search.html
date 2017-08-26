@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Resource Search | OpenEasier{% endblock %}
+
+{% block content %}
+
+    <div class="block-header">
+        <h2>SEARCH</h2>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        SEARCH FOR A NEW RESOURCE
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">WHAT IS THIS?</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="body">
+
+                    <form method="POST" action="{% url 'add-resource' %}">
+                        {% csrf_token %}
+
+                        <div class="row clearfix">
+
+                            <div class="col-sm-10">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" id="search_text" class="form-control"
+                                               placeholder="Enter the words to search for new data" required autofocus>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <button type="submit" class="btn bg-teal waves-effect">
+                                        <i class="material-icons">search</i>
+                                        <span>SEARCH</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                    {% if not form.erros %}
+
+                        {% if request.POST %}
+
+                            <h2 class="card-inside-title">RESULTS</h2>
+
+                        {% endif %}
+
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

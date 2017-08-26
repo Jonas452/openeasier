@@ -16,16 +16,6 @@
         </div>
     {% endif %}
 
-    {% if request.logged_out %}
-        <div class="alert bg-green alert-dismissible" role="alert">
-
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                    aria-hidden="true">&times;</span>
-            </button>
-            <p>User logged out with success!</p>
-        </div>
-    {% endif %}
-
     <div class="login-box">
 
         <div class="logo">
@@ -35,7 +25,7 @@
         <div class="card">
             <div class="body">
 
-                <form method="post" action="{% url 'login' %}">
+                <form method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
 
                     <div class="msg">Sign in to start your session</div>
