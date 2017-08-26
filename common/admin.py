@@ -16,6 +16,7 @@ class DBConfigAdmin(admin.ModelAdmin):
 class DBIgnoreAdmin(admin.ModelAdmin):
     list_display = ('name', 'ignore_type', 'db_config',)
 
+
 '''
 @admin.register(UserSchema)
 class UserSchemaAdmin(admin.ModelAdmin):

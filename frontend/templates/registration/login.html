@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Sign in | OpenEasier{% endblock %}
+
+{% block body %}
+
+    <body class="login-page bg-teal">
+
+    {% if form.errors %}
+        <div class="alert bg-red alert-dismissible" role="alert">
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span>
+            </button>
+            <p>Something went wrong! Please, check if your <b>username</b> and <b>password</b> are correct.</p>
+        </div>
+    {% endif %}
+
+    {% if request.logged_out %}
+        <div class="alert bg-green alert-dismissible" role="alert">
+
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span>
+            </button>
+            <p>User logged out with success!</p>
+        </div>
+    {% endif %}
+
+    <div class="login-box">
+
+        <div class="logo">
+            <a>Open<b>Easier</b></a>
+        </div>
+
+        <div class="card">
+            <div class="body">
+
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+
+                    <div class="msg">Sign in to start your session</div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="text" name="username" required autofocus maxlength="254" class="form-control"
+                                   required_id="id_username"
+                                   placeholder="Enter your username">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                         <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="password" name="password" class="form-control"
+                                   required_id="id_password"
+                                   placeholder="Enter your password" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-block bg-teal waves-effect">
+                        <i class="material-icons">account_circle</i>
+                        <span>SIGN IN</span>
+                    </button>
+
+                    <input type="hidden" name="next" value="{{ next }}"/>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    </body>
+
+{% endblock %}

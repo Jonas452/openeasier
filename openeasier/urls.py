@@ -1,8 +1,15 @@
 from django.conf.urls import include,url
 from django.contrib import admin
 
+app_name = 'frontend'
+
 urlpatterns = [
-    url(r'^admin/', admin.site.urls)
+
+    # /admin/
+    url(r'^admin/', admin.site.urls),
+
+    # /
+    url(r'^', include('frontend.urls')),
 ]
 
 #admin configuration
