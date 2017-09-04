@@ -1,1 +1,4 @@
-/backend/working/
+/backend/working/*
+/.idea/*
+/common/migrations/*
+/frontend/static/*
