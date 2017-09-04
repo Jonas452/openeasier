@@ -19,7 +19,7 @@
     <div class="login-box">
 
         <div class="logo">
-            <a>Open<b>Easier</b></a>
+            <a style="font-size: 40px;font-family: 'Kaushan Script', cursive;">Open<b>Easier</b></a>
         </div>
 
         <div class="card">
@@ -27,7 +27,7 @@
 
                 <div class="align-center">
 
-                    <form method="get" action="{% url 'login' %}">
+                    <form method="get" action="{% url 'frontend:login' %}">
                         {% csrf_token %}
 
                         <button type="submit" class="btn btn-block bg-teal waves-effect">

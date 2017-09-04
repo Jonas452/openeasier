@@ -1,19 +1,22 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block title %}Resource Search | OpenEasier{% endblock %}
 
-{% block content %}
+{% block custom_css %}
+    <!-- Bootstrap Select Css -->
+    <link href="{% static 'frontend/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>
+{% endblock %}
 
-    <div class="block-header">
-        <h2>SEARCH</h2>
-    </div>
+{% block content %}
 
     <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
                     <h2>
-                        SEARCH FOR A NEW RESOURCE
+                        SEARCH RESOURCES
                     </h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
@@ -22,7 +25,7 @@
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">WHAT IS THIS?</a></li>
+                                <li><a href="javascript:void(0);">HELP</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -30,15 +33,28 @@
 
                 <div class="body">
 
-                    <form method="POST" action="{% url 'add-resource' %}">
+                    <form method="POST" action="{% url 'frontend:add_resource' %}">
                         {% csrf_token %}
-
                         <div class="row clearfix">
 
-                            <div class="col-sm-10">
+                            <div class="col-sm-5">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" id="search_text" class="form-control"
+                                        <label class="form-label">Data Source</label> <br>
+                                        <select name="database_id" class="form-control show-tick" required>
+                                            <!--<option value="0">-- Select a option --</option>-->
+                                            {% for database in user_databases %}
+                                                <option value="{{ database.id }}">{{ database.title }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" name="search" id="search" class="form-control"
                                                placeholder="Enter the words to search for new data" required autofocus>
                                     </div>
                                 </div>
@@ -61,7 +77,30 @@
 
                         {% if request.POST %}
 
-                            <h2 class="card-inside-title">RESULTS</h2>
+                            <h2 class="card-inside-title">RESULTS
+                                <small>for search <b>{ {{ search }} }</b> in database <b>{ {{ database.title }} }</b>
+                                </small>
+                            </h2>
+
+                            <div class="row clearfix">
+
+                                {% if tables %}
+
+                                    {% for table in tables %}
+
+                                        {% include "frontend/_item_simple_table.html" with csrf_token=csrf_token table=table database=database only %}
+
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    <div class="align-center">
+                                        <h4>NO RESULTS FOUND FOR THE SEARCH</h4>
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
 
                         {% endif %}
 
@@ -72,4 +111,9 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block custom_js %}
+    <!-- Select Plugin Js -->
+    <script src="{% static 'frontend/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,60 @@
+<div class="col-sm-6">
+    <div class="card">
+
+        <div class="body table-responsive">
+
+            <div class="row clearfix">
+
+                <div class="col-xs-12 col-sm-9">
+                    <h5>{{ table.verbose_name }}</h5>
+                </div>
+
+                <div class="col-xs-12 col-sm-3 align-right">
+
+                    <form method="POST" action="{% url 'frontend:columns_resource' table.table_name %}">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="database_id" value="{{ database.id }}">
+                        <input type="hidden" name="table_schema" value="{{ table.table_schema }}">
+
+                        <button type="submit" class="btn bg-teal btn-block btn-sm waves-effect">
+                            <span>CHOOSE</span>
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+
+            {% if table.sample %}
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        {% for column in table.columns %}
+                            <th>{{ column | truncatechars:20 }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for sample_data in table.sample %}
+                        <tr>
+                            {% for data in sample_data.values %}
+                                <td>{{ data | truncatechars:20 }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+            {% else %}
+                <div class="align-center">
+                    <h6>TABLE WITHOUT DATA</h6>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>

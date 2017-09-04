@@ -1,18 +1,178 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block title %}Resources Panel | OpenEasier{% endblock %}
 
 {% block content %}
 
-    <div class="block-header">
-        <h2>RESOURCE PANEL</h2>
+    <div class="block-header align-center">
+        <h2>PANEL OF RESOURCES</h2>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class="alert bg-green alert-dismissible" role="alert">
+
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span>
+                    </button>
+                    <p>{{ message }}</p>
+                </div>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+
+    <div class="row clearfix">
+
+        {% for result in resources_results %}
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box  hover-expand-effect">
+
+                    {% if result.type == 'FINISHED' %}
+                        <div class="icon bg-green">
+                            <i class="material-icons">done</i>
+                        </div>
+                    {% elif result.type == 'FAILED' %}
+                        <div class="icon bg-red">
+                            <i class="material-icons">error</i>
+                        </div>
+                    {% elif result.type == 'SCHEDULED' %}
+                        <div class="icon bg-amber">
+                            <i class="material-icons">alarm_on</i>
+                        </div>
+                    {% elif result.type == 'RUNNING' %}
+                        <div class="icon bg-indigo">
+                            <i class="material-icons">hourglass_empty</i>
+                        </div>
+                    {% endif %}
+
+                    <div class="content">
+                        <div class="text">{{ result.type }}</div>
+                        <div class="number count-to" data-from="0" data-to="{{ result.value }}" data-speed="1000"
+                             data-fresh-interval="20">
+                            {{ result.value }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 
     <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
+        {% if resources %}
 
+            {% include 'frontend/_item_resource_panel.html' with resources=resources only %}
+
+        {% else %}
+            <!--
+            <div class="card align-center">
+                <div class="body">
+                    <h4>No resources found</h4>
+                </div>
+            </div>
+            -->
+        {% endif %}
+    </div>
+
+    <!--
+        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+            <div class="card">
+                <div class="header bg-red">
+                    <div class="row clearfix">
+                        <div class="col-sm-8">
+                            <h2>
+                                RESOURCE NAME
+                                <small>CKAN INSTANCE NAME</small>
+                            </h2>
+                        </div>
+                        <div class="col-sm-4 align-right">
+                            <button type="submit" class="btn btn-danger btn-lg waves-effect">
+                                <i class="material-icons">search</i>
+                                <span>VIEW LOG</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="body">
+
+                    <div class="form-group demo-icon-container">
+                        <div class="demo-google-material-icon">
+                            <i class="material-icons col-red">error</i>
+                            <span class="icon-name col-red">ERROR</span>
+                        </div>
+                    </div>
+
+                    <b>Occurred at: 02/08/2017 10h20 (25 days ago)</b><br>
+                    <div class="align-justify">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nulla nunc. Maecenas arcu
+                        sem,hendrerit a tempor quis, sagittis accumsan tellus. In hac habitasse platea dictumst.
+                    </div>
+
+                </div>
             </div>
         </div>
+
+        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+            <div class="card">
+                <div class="header bg-blue">
+                    <h2>
+                        RESOURCE NAME
+                        <small>CKAN INSTANCE NAME</small>
+                    </h2>
+                </div>
+
+                <div class="body">
+
+                    <div class="form-group">
+                        <b>Schedule to:</b> 28/08/2017 10h20 (every week) </br>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Last update:</b> 02/08/2017 10h20 (25 days ago)
+                    </div>
+                    <div class="form-group">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                                 aria-valuemax="100" style="width: 75%;">
+                                75%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+            <div class="card">
+                <div class="header bg-green">
+                    <h2>
+                        RESOURCE NAME
+                        <small>CKAN INSTANCE NAME</small>
+                    </h2>
+                </div>
+
+                <div class="body">
+                    <div class="form-group">
+                        <b>Schedule to:</b> 28/09/2017 10h20 (every month) </br>
+                    </div>
+
+                    <div class="form-group">
+                        <b>Last update:</b> 02/08/2017 10h20 (20 days ago)
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+-->
+{% endblock %}
+
+{% block custom_js %}
+    <!-- Jquery CountTo Plugin Js -->
+    <script src="{% static 'frontend/plugins/jquery-countto/jquery.countTo.js' %}"></script>
 {% endblock %}

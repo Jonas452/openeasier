@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Resources Columns | OpenEasier{% endblock %}
+
+{% block content %}
+
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+
+                <div class="header">
+                    <h2>
+                        CHOOSE THE COLUMNS OF THE RESOURCE
+                        <small>for table <b>{ {{ table_name }} }</b> in database <b>{ {{ database.title }} }</b></small>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li><a href="javascript:void(0);">HELP</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="body table-responsive">
+                    {% if data %}
+
+                        <h4>{{ verbose_table_name }}</h4><br>
+
+                        <form method="POST" action="{% url 'frontend:create_resource' table_name %}">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="action" value="show"/>
+                        <input type="hidden" name="database_id" value="{{ database.id }}"/>
+                        <input type="hidden" name="table_schema" value="{{ table_schema }}"/>
+                        <input type="hidden" name="primary_key" value="{{ primary_key }}"/>
+
+                        <table class="table table-bordered">
+
+                            <thead>
+                            <tr>
+                                {% for column in columns %}
+                                    <th>
+                                        <input type="checkbox" id="checkbox_{{ column.name }}" name="checkbox_{{ column.name }}"
+                                               class="filled-in chk-col-teal"/>
+                                        <label for="checkbox_{{ column.name }}"><b>{{ column.verbose_name }}</b></label>
+                                    </th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+
+                            {% for item in data %}
+                                <tbody>
+
+                                <tr>
+                                    {% for value in item.values %}
+                                        <td>{{ value }}</td>
+                                    {% endfor %}
+                                </tr>
+                                </tbody>
+                            {% endfor %}
+
+                        </table>
+                    {% endif %}
+
+                    <div class="form-group align-right">
+                        <button type="submit" class="btn bg-teal waves-effect ">
+                            <i class="material-icons">navigate_next</i>
+                            <span>CONTINUE</span>
+                        </button>
+                    </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

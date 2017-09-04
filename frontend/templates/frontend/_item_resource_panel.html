@@ -1,0 +1,49 @@
+{% for resource in resources %}
+
+    <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <div class="row clearfix">
+                    <div class="col-xs-12 col-sm-9">
+                        <h2>
+                            {% if resource.ckan_resource_id %}
+                                {{ resource.name }}
+
+                                </a>
+                            {% else %}
+                                {{ resource.name }}
+                            {% endif %}
+                            <small>{{ resource.ckan.name }} - {{ resource.ckan.url }}</small>
+                        </h2>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-3 align-right">
+                        <a href="{{ resource.resource_url }}" target="_blank" class="btn bg-teal btn-circle waves-effect waves-circle waves-float">
+                            <i class="material-icons">link</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="body">
+
+                <div class="form-group">
+                    <labe><b>Description:</b></labe>
+                    <br>
+                    {{ resource.description | truncatechars:140 }}
+                </div>
+
+                <div class="form-group">
+                    <b>Scheduled to:</b> {{ resource.get_last_schedule.schedule_date_time | date:"d/m/Y" }}
+                    (EVERY {{ resource.schedule_type }})</br>
+                    {% if resource.get_last_success_schedule %}
+                        <b>Last update: </b>{{ resource.get_last_success_schedule.schedule_date_time | date:"d/m/Y" }}
+                    {% endif %}
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+{% endfor %}

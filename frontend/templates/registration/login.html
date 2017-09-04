@@ -19,13 +19,13 @@
     <div class="login-box">
 
         <div class="logo">
-            <a>Open<b>Easier</b></a>
+            <a style="font-size: 40px;font-family: 'Kaushan Script', cursive;">Open<b>Easier</b></a>
         </div>
 
         <div class="card">
             <div class="body">
 
-                <form method="POST" action="{% url 'login' %}">
+                <form method="POST" action="{% url 'frontend:login' %}">
                     {% csrf_token %}
 
                     <div class="msg">Sign in to start your session</div>
