@@ -1,4 +1,4 @@
-/backend/working/*
 /.idea/*
 /common/migrations/*
-/frontend/static/*
+/backend/working/*
+/frontend/static/frontend/plugins/ckeditor/

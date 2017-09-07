@@ -56,11 +56,15 @@ class ResourceSearchView(View):
         search = util_search.create_search_list(request.POST['search'])
         db_config = DBConfig.objects.get(id=request.POST['database_id'])
 
+        print('Search List: ' + search.__str__()) #REMOVE
+
         user_databases = self.get_user_databases(request.user)
         user_schemas = DBSchema.objects.filter(userschema__user_id=request.user.id)
 
         extractor = DatabaseExtractor(db_config)
-        tables = extractor.extract_tables(search, user_schemas) #TODO GET ALL TABLE AND TREAT NAMES WITH SEARCH_LIST
+        tables = extractor.get_tables_by_words(search, user_schemas)
+
+        print('FINAL TABLES: ' + tables.__str__()) #REMOVE
 
         for table in tables:
             table_extractor = TableExtractor(db_config, table.get('table_name'), table.get('table_schema'))
