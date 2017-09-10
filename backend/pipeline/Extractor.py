@@ -29,7 +29,7 @@ class Extractor:
 
         self.create_csv()
 
-    def post_run(self):
+    def pos_run(self):
         pass
 
     def prepare_columns(self):

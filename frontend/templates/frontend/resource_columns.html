@@ -58,7 +58,7 @@
 
                                 <tr>
                                     {% for value in item.values %}
-                                        <td>{{ value }}</td>
+                                        <td>{{ value | truncatechars:100 }}</td>
                                     {% endfor %}
                                 </tr>
                                 </tbody>

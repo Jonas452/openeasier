@@ -47,7 +47,7 @@ class Loader:
                 upload=open(csv_path, 'rb')
             )
 
-    def post_run(self):
+    def pos_run(self):
         pass
 
     def create_resource(self):

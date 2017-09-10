@@ -12,14 +12,18 @@ from common.models import Resource, ResourceSchedule, DBColumn, DBConfig, CKANIn
 from backend.database.TableExtractor import TableExtractor
 from backend.pipeline.Pipeline import Pipeline
 from backend.Scheduler import Scheduler
+from backend.pipeline.DataDictionary import DataDicionary
 
 
 class Publisher:
     def __init__(self):
-        pipeline = Pipeline(ResourceSchedule.objects.get(id=142))
-        pipeline.execute()
+        #pipeline = Pipeline(ResourceSchedule.objects.get(id=142))
+        #pipeline.execute()
 
         #Scheduler.schedule_all_resources()
+
+        dictionary = DataDicionary(Resource.objects.get(id=62))
+        dictionary.run()
 
         '''
         today_date = datetime.datetime.today().strftime('%Y-%m-%d')

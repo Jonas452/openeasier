@@ -17,8 +17,7 @@ class TableExtractor(DatabaseConnection):
         :param limit: The limits of columns to extract
         :return: A list() with the names of the columns that match with the search
         """
-        query = "SELECT  \
-                    column_name \
+        query = "SELECT  column_name, data_type, character_maximum_length, numeric_precision, is_nullable \
                 FROM information_schema.columns \
                 WHERE table_schema = '" + self.table_schema + "' AND table_name = '" + self.table_name + "'"
 
@@ -30,11 +29,7 @@ class TableExtractor(DatabaseConnection):
 
         data = list(SQLSource(connection=self.db_pgconn, query=query))
 
-        column_name_list = list()
-        for column in data:
-            column_name_list.append(column.get('column_name'))
-
-        return column_name_list
+        return data
 
     def get_special_columns(self):
         """
@@ -102,7 +97,7 @@ class TableExtractor(DatabaseConnection):
         """
         temp = ''
         for column in columns:
-            temp += column + ', '
+            temp += column.get('column_name') + ', '
 
         return temp[:-2]
 

@@ -251,6 +251,9 @@ class DBTable(models.Model):
 class DBColumn(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40)
+    type = models.CharField(max_length=30)
+    size = models.IntegerField()
+    not_null = models.CharField(max_length=3)
 
     db_table = models.ForeignKey(
         'DBTable',

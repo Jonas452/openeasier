@@ -32,8 +32,6 @@ class DatabaseExtractor(DatabaseConnection):
         tables = self.get_tables(schemas)
         final_tables = list()
 
-        print('ALL TALBES: ' + tables.__str__())
-
         if len(search_words) == 1:
             for table in tables:
                 if table.get('table_name').find(search_words[0]) != -1:

@@ -56,15 +56,11 @@ class ResourceSearchView(View):
         search = util_search.create_search_list(request.POST['search'])
         db_config = DBConfig.objects.get(id=request.POST['database_id'])
 
-        print('Search List: ' + search.__str__()) #REMOVE
-
         user_databases = self.get_user_databases(request.user)
         user_schemas = DBSchema.objects.filter(userschema__user_id=request.user.id)
 
         extractor = DatabaseExtractor(db_config)
         tables = extractor.get_tables_by_words(search, user_schemas)
-
-        print('FINAL TABLES: ' + tables.__str__()) #REMOVE
 
         for table in tables:
             table_extractor = TableExtractor(db_config, table.get('table_name'), table.get('table_schema'))
@@ -75,7 +71,7 @@ class ResourceSearchView(View):
 
             verbose_columns = []
             for column in table_columns:
-                verbose_columns.append(util.verbose_name(column))
+                verbose_columns.append(util.verbose_name(column.get('column_name')))
 
             table['columns'] = verbose_columns
 
@@ -144,7 +140,7 @@ class ResourceCreateView(View):
 
         PARAMETERS = dict()
 
-        if request.POST['action'] == 'create':
+        if request.POST.get('action', False) == 'create':
             table = DBTable()
 
             table.name = table_name
@@ -152,11 +148,34 @@ class ResourceCreateView(View):
             table.primary_key = request.POST['primary_key']
             table.save()
 
+            table_extractor = TableExtractor(db_config, table_name, table_schema)
+            table_columns = table_extractor.get_columns()
+
+            print(table_columns)
+
             columns = util.get_items_post(request.POST, 'column_')
             for column in columns:
+
                 temp_column = DBColumn()
                 temp_column.name = column
                 temp_column.db_table = table
+
+                for table_column in table_columns:
+                    if table_column.get('column_name') == column:
+                        print(table_column)
+
+                        temp_column.type = table_column.get('data_type')
+
+                        if table_column.get('character_maximum_length') is not None:
+                            temp_column.size = table_column.get('character_maximum_length')
+                        elif table_column.get('numeric_precision') is not None:
+                            temp_column.size = table_column.get('numeric_precision')
+                        else:
+                            temp_column.size = 0
+
+                        temp_column.not_null = table_column.get('is_nullable')
+                        break
+
                 temp_column.save()
 
             resource = Resource()
@@ -178,7 +197,7 @@ class ResourceCreateView(View):
 
             resource.save()
 
-            if request.POST['checkbox_publich_now']:
+            if request.POST.get('checkbox_publish_now', False):
                 resource_scheduled = Scheduler.schedule_resource(resource)
                 pipeline = Pipeline(ResourceSchedule.objects.get(id=resource_scheduled.id))
                 pipeline.execute()
@@ -187,7 +206,7 @@ class ResourceCreateView(View):
 
             return redirect('frontend:panel_resource')
 
-        elif request.POST['action'] == 'show':
+        elif request.POST.get('action', False) == 'show':
             columns = util.get_items_post(request.POST, 'checkbox_')
 
             remote_ckan = RemoteCKAN(ckan_instance.url)
