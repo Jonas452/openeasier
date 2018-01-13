@@ -8,7 +8,7 @@ class CKANInstance(models.Model):
 
     name = models.CharField(
         max_length=100,
-        help_text='A suggestive name for the CKAN isntance',
+        help_text='A suggestive name for the CKAN instance',
     )
 
     url = models.CharField(

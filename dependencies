@@ -2,3 +2,5 @@ django 1.11
 ckanapi 4.0
 #nltk 3.2.4
 reportlab 3.4.0
+pygrametl 2.5
+psycopg2
