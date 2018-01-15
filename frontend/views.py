@@ -151,8 +151,6 @@ class ResourceCreateView(View):
             table_extractor = TableExtractor(db_config, table_name, table_schema)
             table_columns = table_extractor.get_columns()
 
-            print(table_columns)
-
             columns = util.get_items_post(request.POST, 'column_')
             for column in columns:
 
@@ -188,19 +186,7 @@ class ResourceCreateView(View):
             resource.ckan_data_set_id = request.POST['dataset']
             resource.user = request.user
 
-            datetime_obj = DateTime.strptime(request.POST['schedule_date_time'], '%Y-%m-%d')
-
-            print(datetime_obj)
-
-            resource.schedule_date_time = datetime_obj
-            resource.schedule_type = request.POST['schedule_type']
-
             resource.save()
-
-            if request.POST.get('checkbox_publish_now', False):
-                resource_scheduled = Scheduler.schedule_resource(resource)
-                pipeline = Pipeline(ResourceSchedule.objects.get(id=resource_scheduled.id))
-                pipeline.execute()
 
             messages.success(request, 'Resource created with success!')
 

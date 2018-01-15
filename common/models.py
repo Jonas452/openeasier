@@ -162,7 +162,7 @@ class Resource(TimeStampedModel):
         models.PROTECT
     )
 
-    schedule_date_time = models.DateField()
+    schedule_date_time = models.DateField(null=True)
 
     TYPE_DAY = 'DAY'
     TYPE_WEEK = 'WEEK'
@@ -179,6 +179,7 @@ class Resource(TimeStampedModel):
     schedule_type = models.CharField(
         max_length=15,
         choices=SCHEDULE_TYPES,
+        null=True
     )
 
     def resource_url(self):
