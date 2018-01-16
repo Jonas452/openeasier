@@ -218,3 +218,41 @@ class ResourceCreateView(View):
 
     def get(self, request, table_name):
         return render(request, self.template_name, )
+
+
+class ResourceScheduleView(View):
+    template_name = 'frontend/resource_schedule.html'
+
+    def post(self, request, resource_id):
+        resource = Resource.objects.get(id=resource_id)
+
+        datetime_obj = DateTime.strptime(request.POST['schedule_date_time'], '%Y-%m-%d')
+        print(datetime_obj)
+
+        resource.schedule_date_time = datetime_obj
+        resource.schedule_type = request.POST['schedule_type']
+
+        resource.save()
+
+        messages.success(request, 'Resource scheduled with success!')
+
+        return redirect('frontend:panel_resource')
+
+    def get(self, request, resource_id):
+        resource = Resource.objects.get(id=resource_id)
+
+        PARAMETERS = {
+            'resource': resource
+        }
+
+        return render(request, self.template_name, PARAMETERS)
+
+
+class ResourceDataDictionaryView(View):
+    template_name = 'frontend/resource_data_dictionary.html'
+
+    def post(self, request, resource_id):
+        return render(request, self.template_name, )
+
+    def get(self, request, resource_id):
+        return render(request, self.template_name, )
