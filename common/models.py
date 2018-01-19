@@ -255,6 +255,7 @@ class DBColumn(models.Model):
     type = models.CharField(max_length=30)
     size = models.IntegerField()
     not_null = models.CharField(max_length=3)
+    dd_description = models.TextField(null=True)
 
     db_table = models.ForeignKey(
         'DBTable',

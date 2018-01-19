@@ -234,6 +234,14 @@ class ResourceScheduleView(View):
 
         resource.save()
 
+        resource_schedule = ResourceSchedule()
+
+        resource_schedule.resource = resource
+        resource_schedule.schedule_date_time = datetime_obj
+        resource_schedule.execution_status = resource_schedule.STATUS_SCHEDULED
+
+        resource_schedule.save()
+
         messages.success(request, 'Resource scheduled with success!')
 
         return redirect('frontend:panel_resource')
@@ -252,7 +260,36 @@ class ResourceDataDictionaryView(View):
     template_name = 'frontend/resource_data_dictionary.html'
 
     def post(self, request, resource_id):
-        return render(request, self.template_name, )
+
+        columns_id = util.get_items_post(request.POST, 'column_')
+
+        for column in columns_id:
+            temp_column = DBColumn.objects.get(id=column)
+            temp_column.dd_description = request.POST['column_' + str(column)]
+            temp_column.save()
+
+        messages.success(request, 'Resource Data Dictionary created with success!')
+
+        return redirect('frontend:panel_resource')
 
     def get(self, request, resource_id):
-        return render(request, self.template_name, )
+        resource = Resource.objects.get(id=resource_id)
+
+        data = DBColumn.objects.filter(db_table=resource.table)
+
+        columns = list()
+        for item in data:
+            column = {
+                'id': item.id,
+                'name': item.name,
+                'dd_description': item.dd_description,
+                'verbose_name': util.verbose_name(item.name)
+            }
+            columns.append(column)
+
+        PARAMETERS = {
+            'resource': resource,
+            'columns': columns,
+        }
+
+        return render(request, self.template_name, PARAMETERS)

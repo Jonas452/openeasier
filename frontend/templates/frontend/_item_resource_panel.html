@@ -52,7 +52,7 @@
 
                 <div class="form-group">
                     <b>Scheduled to:</b>
-                    {% if resource.schedule_type != None %}
+                    {% if resource.get_last_schedule.schedule_date_time != None %}
                         {{ resource.get_last_schedule.schedule_date_time | date:"d/m/Y" }}
                         (EVERY {{ resource.schedule_type }})</br>
                     {% else %}
