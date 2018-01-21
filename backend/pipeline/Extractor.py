@@ -49,7 +49,7 @@ class Extractor:
         if not os.path.exists(parcial_path):
             os.makedirs(parcial_path)
 
-        self.path = parcial_path + '/' + today_date + '_extracted.csv'
+        self.path = parcial_path + '/' + today_date + '_' + self.table.name + '.csv'
 
         with open(self.path, 'w', newline='') as out_file:
             writer = csv.DictWriter(out_file, delimiter=',', fieldnames=self.columns)

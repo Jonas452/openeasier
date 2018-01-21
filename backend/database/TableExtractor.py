@@ -97,7 +97,10 @@ class TableExtractor(DatabaseConnection):
         """
         temp = ''
         for column in columns:
-            temp += column.get('column_name') + ', '
+            if isinstance(column, list) or isinstance(column, dict):
+                temp += column.get('column_name') + ', '
+            else:
+                temp += column + ', '
 
         return temp[:-2]
 

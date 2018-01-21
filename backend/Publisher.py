@@ -1,76 +1,28 @@
-import csv
-import datetime
 import os
-
 import django
-from ckanapi import RemoteCKAN
+import datetime
 
 os.environ["DJANGO_SETTINGS_MODULE"] = 'openeasier.settings'
 django.setup()
-from common.models import Resource, ResourceSchedule, DBColumn, DBConfig, CKANInstance, \
-    UserCkanKey
-from backend.database.TableExtractor import TableExtractor
+
+from common.models import ResourceSchedule
 from backend.pipeline.Pipeline import Pipeline
 from backend.Scheduler import Scheduler
-from backend.pipeline.DataDictionary import DataDicionary
 
 
 class Publisher:
     def __init__(self):
-        #pipeline = Pipeline(ResourceSchedule.objects.get(id=142))
-        #pipeline.execute()
 
-        #Scheduler.schedule_all_resources()
+        now = datetime.datetime.now()
+        now = now.strftime("%Y-%m-%d")
 
-        dictionary = DataDicionary(Resource.objects.get(id=62))
-        dictionary.run()
+        resource_schedules_today = ResourceSchedule.objects.filter(schedule_date_time=now)
 
-        '''
-        today_date = datetime.datetime.today().strftime('%Y-%m-%d')
+        for resource_schedule in resource_schedules_today:
+            pipeline = Pipeline(resource_schedule)
+            pipeline.execute()
 
-        resources_schedules_everyday = ResourceSchedule.objects.filter(resource__schedule_type=Resource.TYPE_DAY)
+        Scheduler.schedule_all_resources()
 
-        ckan_instance = CKANInstance.objects.get(id=1)
-
-        for resources_schedules in resources_schedules_everyday:
-            resource = resources_schedules.resource
-            user = resource.user
-            user_api_key = UserCkanKey.objects.get(user=user)
-            table = resource.table
-            db_config = DBConfig.objects.get(dbschema__dbtable=table)
-
-            my_ckan = RemoteCKAN(ckan_instance.url, apikey=user_api_key.ckan_key)
-
-            extractor = TableExtractor(db_config, table.name, table.db_schema.name)
-
-            columns = []
-            for column in DBColumn.objects.filter(db_table=table):
-                columns.append(column.name)
-
-            columns.append(table.primary_key)
-
-            table_data = extractor.get_data(columns)
-
-            partical_path = 'working/' + table.name
-
-            if not os.path.exists(partical_path):
-                os.makedirs(partical_path)
-
-            path = partical_path + '/' + today_date + '.csv'
-
-            with open(path, 'w', newline='') as out_file:
-                writer = csv.DictWriter(out_file, delimiter=',', fieldnames=columns)
-                writer.writeheader()
-
-                for row in table_data:
-                    writer.writerow(row)
-
-            my_ckan.action.resource_create(
-                package_id=resource.ckan_data_set_id,
-                name=resource.name,
-                description=resource.description,
-                primary_key='id',
-                upload=open(path, 'rb'))
-        '''
 
 Publisher()
