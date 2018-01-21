@@ -4,7 +4,7 @@
         <div class="card">
             <div class="header">
                 <div class="row clearfix">
-                    <div class="col-xs-12 col-sm-6">
+                    <div class="col-xs-12 col-sm-7">
                         <h2>
                             {% if resource.ckan_resource_id %}
                                 {{ resource.name }}
@@ -13,11 +13,11 @@
                             {% else %}
                                 {{ resource.name }}
                             {% endif %}
-                            <small>{{ resource.ckan.name }} - {{ resource.ckan.url }}</small>
+                            <small><a href="{{ resource.ckan.url }}" target="_blank">{{ resource.ckan.name }} - {{ resource.ckan.url }}</a></small>
                         </h2>
                     </div>
 
-                    <div class="col-xs-12 col-sm-6 align-right">
+                    <div class="col-xs-12 col-sm-5 align-right" style="padding: 0px;">
                         <div class="btn-toolbar" role="toolbar">
                             <div class="btn-group" role="group">
                                 <a href="{{ resource.resource_url }}"
@@ -52,11 +52,11 @@
 
                 <div class="form-group">
                     <b>Scheduled to:</b>
-                    {% if resource.get_last_schedule.schedule_date_time != None %}
+                    {% if resource.get_last_schedule %}
                         {{ resource.get_last_schedule.schedule_date_time | date:"d/m/Y" }}
                         (EVERY {{ resource.schedule_type }})</br>
                     {% else %}
-                        No schedule
+                        Not scheduled
                     {% endif %}
 
                     {% if resource.get_last_success_schedule %}

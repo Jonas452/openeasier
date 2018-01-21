@@ -105,18 +105,18 @@
             <div class="menu">
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
-                    <li>
 
+                    <li class="{% if request.path == "/index/resources/" %}active{% endif %}">
                         <a class="toggled waves-effect waves-block" href="{% url 'frontend:panel_resource' %}">
                             <i class="material-icons">view_list</i>
                             <span>Resources Panel</span>
                         </a>
-
+                    </li>
+                    <li class="{% if request.path == "/index/resource/" %}active{% endif %}">
                         <a class="toggled waves-effect waves-block" href="{% url 'frontend:add_resource' %}">
                             <i class="material-icons">add_circle_outline</i>
                             <span>Add new Resource</span>
                         </a>
-
                     </li>
                 </ul>
             </div>

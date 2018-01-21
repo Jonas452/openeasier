@@ -79,6 +79,7 @@ class ResourceSearchView(View):
             table['sample'] = table_data_sample
 
         PARAMETERS = {
+            'search_word': request.POST['search'],
             'search': search,
             'user_databases': user_databases,
             'database': db_config,
