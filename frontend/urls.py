@@ -31,6 +31,11 @@ urlpatterns = [
         views.ResourceColumnsView.as_view(),
         name='columns_resource'),
 
+    # /index/resource/produtor/secondary_columns
+    url(r'^index/resource/(?P<table_name>[a-z_]+)/secondary_columns/$',
+        views.ResourceSecondaryColumnsView.as_view(),
+        name='secondary_columns_resource'),
+
     # /index/resource/produtor/columns
     url(r'^index/resource/(?P<table_name>[a-z_]+)/create/$',
         views.ResourceCreateView.as_view(),

@@ -31,7 +31,7 @@ class TableExtractor(DatabaseConnection):
 
         return data
 
-    def get_special_columns(self):
+    def get_special_columns(self, only_fk=False):
         """
         Extracts all primary and foreing keys columns of a table
         :return: A list() with all the primary and foreing keys columns
@@ -41,11 +41,17 @@ class TableExtractor(DatabaseConnection):
             return self.special_columns
 
         query = "SELECT \
+                    ccu.table_name, \
+                    ccu.table_schema, \
                     kc.column_name, \
                     tc.constraint_type \
                 FROM information_schema.table_constraints tc \
                 JOIN information_schema.key_column_usage kc ON kc.table_name = tc.table_name AND kc.constraint_name = tc.constraint_name \
+                JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name \
                 WHERE tc.table_name = '" + self.table_name + "' AND tc.table_schema = '" + self.table_schema + "'"
+
+        if only_fk:
+            query += " AND tc.constraint_type='FOREIGN KEY'"
 
         self.special_columns = list(SQLSource(connection=self.db_pgconn, query=query))
 
@@ -74,6 +80,7 @@ class TableExtractor(DatabaseConnection):
 
         sample_list = list()
         for sample_dict in data:
+            print(sample_dict)
             sample_list.append(sample_dict)
 
         return sample_list

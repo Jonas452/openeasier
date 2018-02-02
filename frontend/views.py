@@ -109,6 +109,11 @@ class ResourceColumnsView(View):
 
         data = table_extractor.get_data(table_columns, 5)
 
+        if len(table_extractor.get_special_columns()) > 1:
+            has_secondary = True
+        else:
+            has_secondary = False
+
         columns = list()
         for item in data[0]:
             column = {
@@ -125,6 +130,7 @@ class ResourceColumnsView(View):
             'primary_key': table_extractor.get_primary_key_name(),
             'columns': columns,
             'data': data,
+            'has_secondary': has_secondary,
         }
 
         return render(request, self.template_name, PARAMETERS)
@@ -161,8 +167,6 @@ class ResourceCreateView(View):
 
                 for table_column in table_columns:
                     if table_column.get('column_name') == column:
-                        print(table_column)
-
                         temp_column.type = table_column.get('data_type')
 
                         if table_column.get('character_maximum_length') is not None:
@@ -176,6 +180,74 @@ class ResourceCreateView(View):
                         break
 
                 temp_column.save()
+
+            #FK COLUMNS ############
+            temp_fks = util.get_items_post(request.POST, 'fk_')
+            temp_keys = util.get_items_post(request.POST, 'key_')
+            temp_fkeys = util.get_items_post(request.POST, 'fkey_')
+
+            table_fks = list()
+
+            for fk in temp_fks:
+                split_str = fk.split('_table_')
+
+                #get the table
+                if split_str[1] not in table_fks:
+                    table_fks.append(split_str[1])
+
+                    table_split = (split_str[1]).split('_schema_')
+
+                    table_temp = DBTable()
+                    table_temp.name = table_split[0]
+                    table_temp.db_schema = DBSchema.objects.get(name=table_split[1])
+                    table_temp.db_table = table
+
+                    #Search the table's key name
+                    for temp_key in temp_keys:
+                        ss_key = temp_key.split('_table_')
+
+                        if ss_key[1] == table_temp.name:
+                            table_temp.primary_key = ss_key[0]
+                            break;
+
+                    #Search the table's fk key name
+                    for temp_fkey in temp_fkeys:
+                        ss_fkey = temp_fkey.split('_table_')
+
+                        if ss_fkey[1] == table_temp.name:
+                            table_temp.fk_name = ss_fkey[0]
+                            break;
+
+                    table_temp.save()
+
+                    for t_fk in temp_fks:
+                        t_split_str = t_fk.split('_table_')
+
+                        t_table_extractor = TableExtractor(db_config, table_split[0], table_split[1])
+                        t_table_columns = t_table_extractor.get_columns()
+
+                        if t_split_str[1] == split_str[1]:
+                            temp_column = DBColumn()
+                            temp_column.name = t_split_str[0]
+                            temp_column.db_table = table_temp
+
+                            for t_table_column in t_table_columns:
+                                if t_table_column.get('column_name') == t_split_str[0]:
+                                    temp_column.type = t_table_column.get('data_type')
+
+                                    if t_table_column.get('character_maximum_length') is not None:
+                                        temp_column.size = t_table_column.get('character_maximum_length')
+                                    elif t_table_column.get('numeric_precision') is not None:
+                                        temp_column.size = t_table_column.get('numeric_precision')
+                                    else:
+                                        temp_column.size = 0
+
+                                    temp_column.not_null = t_table_column.get('is_nullable')
+                                    break
+
+                            temp_column.save()
+
+            #########################
 
             resource = Resource()
 
@@ -194,7 +266,10 @@ class ResourceCreateView(View):
             return redirect('frontend:panel_resource')
 
         elif request.POST.get('action', False) == 'show':
-            columns = util.get_items_post(request.POST, 'checkbox_')
+            columns = util.get_items_post(request.POST, 'column_')
+            fk_columns = util.get_items_post(request.POST, 'fk_')
+            key_columns = util.get_items_post(request.POST, 'key_')
+            fkey_columns = util.get_items_post(request.POST, 'fkey_')
 
             remote_ckan = RemoteCKAN(ckan_instance.url)
             datasets = remote_ckan.action.package_list()
@@ -212,6 +287,9 @@ class ResourceCreateView(View):
                 'table_schema': table_schema,
                 'primary_key': request.POST['primary_key'],
                 'columns': columns,
+                'key_columns': key_columns,
+                'fkey_columns': fkey_columns,
+                'fk_columns': fk_columns,
                 'datasets': datasets,
             }
 
@@ -294,3 +372,59 @@ class ResourceDataDictionaryView(View):
         }
 
         return render(request, self.template_name, PARAMETERS)
+
+
+class ResourceSecondaryColumnsView(View):
+    template_name = 'frontend/resource_secondary_columns.html'
+
+    def post(self, request, table_name):
+        db_config = DBConfig.objects.get(id=request.POST['database_id'])
+        table_schema = request.POST['table_schema']
+
+        table_extractor = TableExtractor(db_config, table_name, table_schema)
+
+        fk_tables = table_extractor.get_special_columns(only_fk=True);
+
+        tables = list()
+
+        for fk_table in fk_tables:
+
+            temp_table_extractor = TableExtractor(db_config, fk_table.get('table_name'), fk_table.get('table_schema'))
+            table_columns = temp_table_extractor.get_columns(special_columns=False)
+            data = temp_table_extractor.get_data(table_columns, 5)
+
+            columns = list()
+
+            for table_column in table_columns:
+                column = {
+                    'name': table_column.get('column_name'),
+                    'verbose_name': util.verbose_name(table_column.get('column_name'))
+                }
+                columns.append(column)
+
+            table = {
+                'table_name': fk_table.get('table_name'),
+                'table_name_verbose': util.verbose_name(fk_table.get('table_name')),
+                'table_schema': fk_table.get('table_schema'),
+                'table_primary_key': temp_table_extractor.get_primary_key_name(),
+                'table_fk_column': fk_table.get('column_name'),
+                'columns': columns,
+                'data': data,
+            }
+            tables.append(table)
+
+        PARAMETERS = {
+            'database': db_config,
+            'table_name': table_name,
+            'table_schema': table_schema,
+            'tables': tables,
+            'primary_key': request.POST['primary_key'],
+            'columns': util.get_items_post(request.POST, 'column_'),
+        }
+
+        return render(request, self.template_name, PARAMETERS)
+
+        return render(request, self.template_name)
+
+    def get(self, request, table_name):
+        return render(request, self.template_name)

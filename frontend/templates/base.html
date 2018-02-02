@@ -112,7 +112,7 @@
                             <span>Resources Panel</span>
                         </a>
                     </li>
-                    <li class="{% if request.path == "/index/resource/" %}active{% endif %}">
+                    <li class="{% if request.path == "/index/resource/" or request.path == "/index/resource/produto/columns/" or request.path == "/index/resource/produto/create/" %}active{% endif %}">
                         <a class="toggled waves-effect waves-block" href="{% url 'frontend:add_resource' %}">
                             <i class="material-icons">add_circle_outline</i>
                             <span>Add new Resource</span>

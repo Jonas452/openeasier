@@ -231,7 +231,8 @@ class ResourceSchedule(models.Model):
 class DBTable(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=40)
-    primary_key = models.CharField(max_length=20)
+    primary_key = models.CharField(max_length=20, null=True)
+    fk_name = models.CharField(max_length=40, null=True)
 
     db_schema = models.ForeignKey(
         'DBSchema',

@@ -1,6 +1,19 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block title %}Resources Columns | OpenEasier{% endblock %}
+
+{% block custom_css %}
+
+    <!-- JQuery DataTable Css -->
+    <link href="{% static 'frontend/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css' %}"
+          rel="stylesheet"/>
+
+    <!-- Custom Css -->
+    <link href="{% static 'frontend/css/style.css' %}" rel="stylesheet">
+
+{% endblock %}
 
 {% block content %}
 
@@ -26,60 +39,86 @@
                     </ul>
                 </div>
 
-                <div class="body table-responsive">
-                    {% if data %}
+                <div class="body">
+                    <div class="table-responsive">
+                        {% if data %}
 
-                        <h4>{{ verbose_table_name }}</h4><br>
+                            <h4>{{ verbose_table_name }}</h4><br>
 
-                        <form method="POST" action="{% url 'frontend:create_resource' table_name %}">
-                        {% csrf_token %}
+                            {% if has_secondary %}
+                                <form method="POST" action="{% url 'frontend:secondary_columns_resource' table_name %}">
+                            {% else %}
+                                <form method="POST" action="{% url 'frontend:create_resource' table_name %}">
+                            {% endif %}
 
-                        <input type="hidden" name="action" value="show"/>
-                        <input type="hidden" name="database_id" value="{{ database.id }}"/>
-                        <input type="hidden" name="table_schema" value="{{ table_schema }}"/>
-                        <input type="hidden" name="primary_key" value="{{ primary_key }}"/>
+                            {% csrf_token %}
 
-                        <table class="table table-bordered">
+                            <input type="hidden" name="action" value="show"/>
+                            <input type="hidden" name="database_id" value="{{ database.id }}"/>
+                            <input type="hidden" name="table_schema" value="{{ table_schema }}"/>
+                            <input type="hidden" name="primary_key" value="{{ primary_key }}"/>
 
-                            <thead>
-                            <tr>
-                                {% for column in columns %}
-                                    <th>
-                                        <input type="checkbox" id="checkbox_{{ column.name }}" name="checkbox_{{ column.name }}"
-                                               class="filled-in chk-col-teal"/>
-                                        <label for="checkbox_{{ column.name }}"><b>{{ column.verbose_name }}</b></label>
-                                    </th>
-                                {% endfor %}
-                            </tr>
-                            </thead>
+                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
 
-                            {% for item in data %}
-                                <tbody>
-
+                                <thead>
                                 <tr>
-                                    {% for value in item.values %}
-                                        <td>{{ value | truncatechars:100 }}</td>
+                                    {% for column in columns %}
+                                        <th>
+                                            <input type="checkbox" id="column_{{ column.name }}"
+                                                   name="column_{{ column.name }}"
+                                                   class="filled-in chk-col-teal"/>
+                                            <label for="column_{{ column.name }}"><b>{{ column.verbose_name }}</b></label>
+                                        </th>
                                     {% endfor %}
                                 </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for item in data %}
+
+                                    <tr>
+                                        {% for value in item.values %}
+                                            <td>{{ value | truncatechars:100 }}</td>
+                                        {% endfor %}
+                                    </tr>
+
+                                {% endfor %}
                                 </tbody>
-                            {% endfor %}
 
-                        </table>
-                    {% endif %}
+                            </table>
+                        {% endif %}
 
-                    <div class="form-group align-right">
-                        <button type="submit" class="btn bg-teal waves-effect ">
-                            <i class="material-icons">navigate_next</i>
-                            <span>CONTINUE</span>
-                        </button>
+                        <div class="form-group align-right">
+                            <button type="submit" class="btn bg-teal waves-effect ">
+                                <i class="material-icons">navigate_next</i>
+                                <span>CONTINUE</span>
+                            </button>
+                        </div>
+
+                        </form>
                     </div>
-
-                    </form>
-
                 </div>
-
             </div>
         </div>
     </div>
+
+{% endblock %}
+
+{% block custom_js %}
+
+    <!-- Jquery DataTable Plugin Js -->
+    <script src="{% static 'frontend/plugins/jquery-datatable/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'frontend/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'frontend/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'frontend/plugins/jquery-datatable/extensions/export/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'frontend/plugins/jquery-datatable/extensions/export/jszip.min.js' %}"></script>
+    <script src="{% static 'frontend/plugins/jquery-datatable/extensions/export/pdfmake.min.js' %}"></script>
+    <script src="{% static 'frontend/plugins/jquery-datatable/extensions/export/vfs_fonts.js' %}"></script>
+    <script src="{% static 'frontend/plugins/jquery-datatable/extensions/export/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'frontend/plugins/jquery-datatable/extensions/export/buttons.print.min.js' %}"></script>
+
+    <!-- Custom Js -->
+    <script src="{% static 'frontend/js/admin.js' %}"></script>
+    <script src="{% static 'frontend/js/pages/tables/jquery-datatable.js' %}"></script>
 
 {% endblock %}

@@ -56,6 +56,24 @@
 
                         {% endfor %}
 
+                        {% for column in fk_columns %}
+
+                            <input type="hidden" name="fk_{{ column }}" value="{{ column }}"/>
+
+                        {% endfor %}
+
+                        {% for column in key_columns %}
+
+                            <input type="hidden" name="key_{{ column }}" value="{{ column }}"/>
+
+                        {% endfor %}
+
+                        {% for column in fkey_columns %}
+
+                            <input type="hidden" name="fkey_{{ column }}" value="{{ column }}"/>
+
+                        {% endfor %}
+
                         <input type="hidden" name="database_id" value="{{ database.id }}"/>
                         <input type="hidden" name="table_schema" value="{{ table_schema }}"/>
                         <input type="hidden" name="primary_key" value="{{ primary_key }}"/>

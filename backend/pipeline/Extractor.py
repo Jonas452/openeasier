@@ -7,7 +7,8 @@ os.environ["DJANGO_SETTINGS_MODULE"] = 'openeasier.settings'
 django.setup()
 
 from backend.database.TableExtractor import TableExtractor
-from common.models import DBConfig, DBColumn
+from backend.database.MultiTableExtractor import MultiTableExtractor
+from common.models import DBConfig, DBColumn, DBTable
 
 
 class Extractor:
@@ -22,22 +23,34 @@ class Extractor:
         pass
 
     def run(self):
-        extractor = TableExtractor(self.db_config, self.table.name, self.table.db_schema.name)
 
-        self.columns = self.prepare_columns()
-        self.table_data = extractor.get_data(self.columns)
+        fk_tables = DBTable.objects.filter(db_table=self.table)
+
+        if len(fk_tables) > 0:
+            extractor = MultiTableExtractor(self.db_config, self.table, fk_tables)
+
+            self.columns = extractor.get_columns()
+            self.table_data = extractor.get_data()
+            
+        else:
+            extractor = TableExtractor(self.db_config, self.table.name, self.table.db_schema.name)
+
+            self.columns = Extractor.prepare_columns(self.table)
+            self.table_data = extractor.get_data(self.columns)
 
         self.create_csv()
 
     def pos_run(self):
         pass
 
-    def prepare_columns(self):
+    @staticmethod
+    def prepare_columns(p_table):
         columns = []
-        for column in DBColumn.objects.filter(db_table=self.table):
+        for column in DBColumn.objects.filter(db_table=p_table):
             columns.append(column.name)
 
-        columns.append(self.table.primary_key)
+        if p_table.primary_key is not None:
+            columns.append(p_table.primary_key)
 
         return columns
 
