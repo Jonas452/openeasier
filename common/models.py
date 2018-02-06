@@ -197,6 +197,19 @@ class Resource(TimeStampedModel):
         db_table = 'resource'
 
 
+class ResourceDataDictionary(models.Model):
+    id = models.AutoField(primary_key=True, auto_created=True)
+    description = models.CharField(max_length=250)
+    ckan_resource_id = models.CharField(max_length=100)
+
+    resource = models.ForeignKey(
+        'Resource',
+        models.PROTECT,
+    )
+
+    class Meta:
+        db_table = 'resource_data_dictionary'
+
 class ResourceSchedule(models.Model):
     id = models.AutoField(primary_key=True, auto_created=True)
     schedule_date_time = models.DateField()

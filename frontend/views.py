@@ -5,11 +5,10 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import View
 
-from backend.Scheduler import Scheduler
 from backend.database.DatabaseExtractor import DatabaseExtractor
 from backend.database.TableExtractor import TableExtractor
-from backend.pipeline.Pipeline import Pipeline
-from common.models import CKANInstance, DBConfig, Resource, ResourceSchedule, DBSchema, DBTable, DBColumn
+from common.models import CKANInstance, DBConfig, Resource, ResourceSchedule, DBSchema, DBTable, DBColumn, \
+    ResourceDataDictionary
 from frontend.utils import util, util_search
 
 
@@ -181,7 +180,7 @@ class ResourceCreateView(View):
 
                 temp_column.save()
 
-            #FK COLUMNS ############
+            # FK COLUMNS ############
             temp_fks = util.get_items_post(request.POST, 'fk_')
             temp_keys = util.get_items_post(request.POST, 'key_')
             temp_fkeys = util.get_items_post(request.POST, 'fkey_')
@@ -191,7 +190,7 @@ class ResourceCreateView(View):
             for fk in temp_fks:
                 split_str = fk.split('_table_')
 
-                #get the table
+                # get the table
                 if split_str[1] not in table_fks:
                     table_fks.append(split_str[1])
 
@@ -202,7 +201,7 @@ class ResourceCreateView(View):
                     table_temp.db_schema = DBSchema.objects.get(name=table_split[1])
                     table_temp.db_table = table
 
-                    #Search the table's key name
+                    # Search the table's key name
                     for temp_key in temp_keys:
                         ss_key = temp_key.split('_table_')
 
@@ -210,7 +209,7 @@ class ResourceCreateView(View):
                             table_temp.primary_key = ss_key[0]
                             break;
 
-                    #Search the table's fk key name
+                    # Search the table's fk key name
                     for temp_fkey in temp_fkeys:
                         ss_fkey = temp_fkey.split('_table_')
 
@@ -306,7 +305,6 @@ class ResourceScheduleView(View):
         resource = Resource.objects.get(id=resource_id)
 
         datetime_obj = DateTime.strptime(request.POST['schedule_date_time'], '%Y-%m-%d')
-        print(datetime_obj)
 
         resource.schedule_date_time = datetime_obj
         resource.schedule_type = request.POST['schedule_type']
@@ -340,6 +338,17 @@ class ResourceDataDictionaryView(View):
 
     def post(self, request, resource_id):
 
+        data_dictionary_id = request.POST['data_dictionary_id']
+        if data_dictionary_id:
+            data_dictionary = ResourceDataDictionary.objects.get(id=int(data_dictionary_id))
+        else:
+            data_dictionary = ResourceDataDictionary()
+
+        data_dictionary.resource = Resource.objects.get(id=resource_id)
+        data_dictionary.description = request.POST['dd_description']
+
+        data_dictionary.save()
+
         columns_id = util.get_items_post(request.POST, 'column_')
 
         for column in columns_id:
@@ -354,9 +363,15 @@ class ResourceDataDictionaryView(View):
     def get(self, request, resource_id):
         resource = Resource.objects.get(id=resource_id)
 
+        try:
+            data_dictionary = ResourceDataDictionary.objects.get(resource=resource)
+        except Exception:
+            data_dictionary = None
+
         data = DBColumn.objects.filter(db_table=resource.table)
 
         columns = list()
+
         for item in data:
             column = {
                 'id': item.id,
@@ -366,8 +381,21 @@ class ResourceDataDictionaryView(View):
             }
             columns.append(column)
 
+        for temp_table in DBTable.objects.filter(db_table=resource.table):
+            data_fk = DBColumn.objects.filter(db_table=temp_table)
+
+            for item in data_fk:
+                column = {
+                    'id': item.id,
+                    'name': item.name,
+                    'dd_description': item.dd_description,
+                    'verbose_name': util.verbose_name(temp_table.name) + " - " + util.verbose_name(item.name)
+                }
+                columns.append(column)
+
         PARAMETERS = {
             'resource': resource,
+            'data_dictionary': data_dictionary,
             'columns': columns,
         }
 

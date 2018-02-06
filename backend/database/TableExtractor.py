@@ -80,7 +80,6 @@ class TableExtractor(DatabaseConnection):
 
         sample_list = list()
         for sample_dict in data:
-            print(sample_dict)
             sample_list.append(sample_dict)
 
         return sample_list

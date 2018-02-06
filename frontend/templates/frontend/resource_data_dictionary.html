@@ -33,6 +33,16 @@
                             <br><span>{{ resource.name }} - {{ resource.ckan.name }}</span>
                         </div>
 
+                        <input type="hidden" name="data_dictionary_id" value="{{ data_dictionary.id }}"/>
+
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label>Resource Data Dictionary Description</label>
+                                <input type="text" value="{{ data_dictionary.description|default_if_none:"" }}"
+                                           class="form-control" name="dd_description">
+                            </div>
+                        </div>
+
                         <h4>Describe the columns:</h4>
                         <br>
 
@@ -40,7 +50,8 @@
                             <div class="form-group">
                                 <div class="form-line">
                                     <label>{{ column.verbose_name }}</label>
-                                    <input type="text" value="{{ column.dd_description|default_if_none:"" }}" class="form-control" name="column_{{ column.id }}">
+                                    <input type="text" value="{{ column.dd_description|default_if_none:"" }}"
+                                           class="form-control" name="column_{{ column.id }}">
                                 </div>
                             </div>
                         {% endfor %}

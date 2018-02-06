@@ -36,6 +36,7 @@ class Loader:
                 id=self.resource.ckan_resource_id,
                 name=self.resource.name,
                 description=self.resource.description,
+                primary_key=self.resource.table.primary_key,
                 upload=open(csv_path, 'rb')
             )
         else:
@@ -43,17 +44,11 @@ class Loader:
                 package_id=self.resource.ckan_data_set_id,
                 name=self.resource.name,
                 description=self.resource.description,
-                primary_key='id',
+                primary_key=self.resource.table.primary_key,
                 upload=open(csv_path, 'rb')
             )
 
     def pos_run(self):
-        pass
-
-    def create_resource(self):
-        pass
-
-    def update_resource(self):
         pass
 
     def check_package_exists(self, id):

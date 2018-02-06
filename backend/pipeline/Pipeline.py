@@ -7,6 +7,7 @@ django.setup()
 from common.models import CKANInstance, Resource, ResourceSchedule, UserCkanKey
 from .Loader import Loader
 from .Extractor import Extractor
+from .DataDictionary import DataDictionary
 
 
 class Pipeline:
@@ -19,8 +20,9 @@ class Pipeline:
 
         self.my_ckan = RemoteCKAN(self.ckan_instance.url, self.user_api_key.ckan_key)
 
-        self.loader = Loader(self.resource, self.my_ckan)
         self.extractor = Extractor(self.resource)
+        self.loader = Loader(self.resource, self.my_ckan)
+        self.data_dictionary = DataDictionary(self.resource, self.my_ckan)
 
         self.final_status = ResourceSchedule.STATUS_FINISHED
 
@@ -44,14 +46,19 @@ class Pipeline:
         self.extractor.pre_run()
         # TODO Add transform.pre_run() method
         self.loader.pre_run()
+        self.data_dictionary.pre_run()
 
     def run(self):
         self.extractor.run()
         # TODO Add trasnform.run() method
         self.loader.run(self.extractor.path)
+        self.data_dictionary.run()
 
     def pos_run(self):
         self.set_resource_id()
+        self.extractor.pos_run()
+        self.loader.pos_run()
+        self.data_dictionary.pos_run()
 
     def set_resource_schedule_running(self):
         self.resource_schedule.execution_status = ResourceSchedule.STATUS_RUNNING
