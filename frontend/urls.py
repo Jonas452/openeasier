@@ -46,6 +46,11 @@ urlpatterns = [
         views.ResourceScheduleView.as_view(),
         name='schedule_resource'),
 
+    # /index/resource/10/edit
+    url(r'^index/resource/(?P<resource_id>[0-9]+)/edit/$',
+        views.ResourceEditView.as_view(),
+        name='resource_edit'),
+
     # /index/resource/10/data_dictionary
     url(r'^index/resource/(?P<resource_id>[0-9]+)/data_dictionary/$',
         views.ResourceDataDictionaryView.as_view(),

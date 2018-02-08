@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 
-{% block title %}Resources Creation | OpenEasier{% endblock %}
+{% block title %}Resources Edit | OpenEasier{% endblock %}
 
 {% block custom_css %}
 
@@ -11,7 +11,6 @@
 
     <!-- Bootstrap Spinner Css -->
     <link href="{% static 'frontend/plugins/jquery-spinner/css/bootstrap-spinner.css' %}" rel="stylesheet">
-
 
     <!-- Bootstrap Select Css -->
     <link href="{% static 'frontend/plugins/bootstrap-select/css/bootstrap-select.css' %}" rel="stylesheet"/>
@@ -26,9 +25,7 @@
 
                 <div class="header">
                     <h2>
-                        FILL THE INFORMATION ABOUT THE RESOURCE
-                        <small>for table <b>{ {{ table_name }} }</b> in database <b>{ {{ database.title }} }</b></small>
-                        <small>with columns <b>{ {{ columns_label }} }</b></small>
+                        EDIT THE INFORMATION FROM THE RESOURCE
                     </h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
@@ -48,47 +45,12 @@
                     <form method="POST" action="#">
                         {% csrf_token %}
 
-                        <input type="hidden" name="action" value="create"/>
-
-                        {% for column in columns %}
-
-                            <input type="hidden" name="column_{{ column }}" value="{{ column }}"/>
-
-                        {% endfor %}
-
-                        {% for column in fk_columns %}
-
-                            <input type="hidden" name="fk_{{ column }}" value="{{ column }}"/>
-
-                        {% endfor %}
-
-                        {% for column in key_columns %}
-
-                            <input type="hidden" name="key_{{ column }}" value="{{ column }}"/>
-
-                        {% endfor %}
-
-                        {% for column in fkey_columns %}
-
-                            <input type="hidden" name="fkey_{{ column }}" value="{{ column }}"/>
-
-                        {% endfor %}
-
-                        <input type="hidden" name="database_id" value="{{ database.id }}"/>
-                        <input type="hidden" name="table_schema" value="{{ table_schema }}"/>
-                        <input type="hidden" name="primary_key" value="{{ primary_key }}"/>
-
-                        <h4>Basic Information</h4>
+                        <input type="hidden" name="resource_id" value="{{ resource.id }}"/>
 
                         <div class="form-group">
                             <div class="form-line">
                                 <label class="">CKAN Dataset</label> <br>
-                                <select name="dataset" class="form-control show-tick">
-                                    <option value="0">-- Select a option --</option>
-                                    {% for dataset in datasets %}
-                                        <option value="{{ dataset }}">{{ dataset }}</option>
-                                    {% endfor %}
-                                </select>
+                                <input type="text" class="form-control" name="dataset" value="{{ dataset }}" readonly >
                             </div>
                         </div>
 
@@ -96,7 +58,7 @@
                             <div class="form-line">
                                 <label>Name</label>
                                 <input type="text" class="form-control" name="name" required="" aria-required="true"
-                                       placeholder="Inform the name of your Resource">
+                                       placeholder="Inform the name of your Resource" value="{{ resource.name }}">
                             </div>
                         </div>
 
@@ -104,15 +66,20 @@
                             <div class="form-line">
                                 <label>Description</label>
                                 <textarea rows="4" class="form-control no-resize" name="description" required=""
-                                          aria-required="true" placeholder="Describe youer Resource here"></textarea>
+                                          aria-required="true" placeholder="Describe youer Resource here">{{ resource.description }}</textarea>
                             </div>
                         </div>
 
-                        <div class="form-group align-right">
-                            <button type="submit" class="btn bg-teal waves-effect ">
+                         <div class="form-group">
+                             <a href="{% url 'frontend:panel_resource' %}" class="btn bg-teal waves-effect">
+                                <i class="material-icons">arrow_back</i>
+                                <span>BACK</span>
+                            </a>
+                            <button type="submit" class="btn bg-teal waves-effect">
                                 <i class="material-icons">done</i>
                                 <span>FINISH</span>
                             </button>
+
                         </div>
 
                     </form>
@@ -128,5 +95,4 @@
 {% block custom_js %}
     <script src="{% static 'frontend/plugins/jquery-steps/jquery.steps.js' %}"></script>
     <script src="{% static 'frontend/plugins/jquery-inputmask/jquery.inputmask.bundle.js' %}"></script>
-
 {% endblock %}

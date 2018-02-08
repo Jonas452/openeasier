@@ -452,7 +452,35 @@ class ResourceSecondaryColumnsView(View):
 
         return render(request, self.template_name, PARAMETERS)
 
-        return render(request, self.template_name)
-
     def get(self, request, table_name):
         return render(request, self.template_name)
+
+
+class ResourceEditView(View):
+    template_name = 'frontend/resource_edit.html'
+
+    def post(self, request, resource_id):
+
+        resource = Resource.objects.get(id=resource_id)
+
+        resource.name = request.POST['name']
+        resource.description = request.POST['description']
+
+        resource.save()
+
+        messages.success(request, 'Resource edited with success!')
+
+        return redirect('frontend:panel_resource')
+
+    def get(self, request, resource_id):
+        ckan_instance = CKANInstance.objects.get(id=1)
+        remote_ckan = RemoteCKAN(ckan_instance.url)
+        resource = Resource.objects.get(id=resource_id)
+        dataset = remote_ckan.action.package_show(id=resource.ckan_data_set_id)
+
+        PARAMETERS = {
+            'resource': resource,
+            'dataset': dataset.get('name'),
+        }
+
+        return render(request, self.template_name, PARAMETERS)
