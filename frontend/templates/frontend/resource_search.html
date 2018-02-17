@@ -54,7 +54,8 @@
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input type="text" name="search" id="search" class="form-control" value="{{ search_word }}"
+                                        <input type="text" name="search" id="search" class="form-control"
+                                               value="{{ search_word }}"
                                                placeholder="Enter the words to search for new data" required autofocus>
                                     </div>
                                 </div>
@@ -88,7 +89,9 @@
 
                                     {% for table in tables %}
 
-                                        {% include "frontend/_item_simple_table.html" with csrf_token=csrf_token table=table database=database only %}
+                                        {% if table.columns %}
+                                            {% include "frontend/_item_simple_table.html" with csrf_token=csrf_token table=table database=database only %}
+                                        {% endif %}
 
                                     {% endfor %}
 

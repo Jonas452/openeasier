@@ -1,5 +1,6 @@
 import os
 import django
+from django.db.models import Q
 import datetime
 
 os.environ["DJANGO_SETTINGS_MODULE"] = 'openeasier.settings'
@@ -16,9 +17,10 @@ class Publisher:
         now = datetime.datetime.now()
         now = now.strftime("%Y-%m-%d")
 
-        resource_schedules_today = ResourceSchedule.objects.filter(schedule_date_time=now)
+        resources = ResourceSchedule.objects.filter(schedule_date_time=now)
+        resources = resources.filter(execution_status=ResourceSchedule.STATUS_SCHEDULED)
 
-        for resource_schedule in resource_schedules_today:
+        for resource_schedule in resources:
             pipeline = Pipeline(resource_schedule)
             pipeline.execute()
 

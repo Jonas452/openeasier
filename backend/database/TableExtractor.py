@@ -1,5 +1,6 @@
 from pygrametl.datasources import SQLSource
 from .DatabaseConnection import DatabaseConnection
+from common.models import DBIgnore
 
 
 class TableExtractor(DatabaseConnection):
@@ -21,8 +22,13 @@ class TableExtractor(DatabaseConnection):
                 FROM information_schema.columns \
                 WHERE table_schema = '" + self.table_schema + "' AND table_name = '" + self.table_name + "'"
 
-        if not special_columns:
+        if not special_columns and len(self.get_special_columns()) > 0:
             query += " AND " + TableExtractor.not_special_columns_where_statement(self.get_special_columns())
+
+        where_ignore_columns = TableExtractor.get_ignore_columns(self.db_config)
+
+        if where_ignore_columns != '':
+            query += " AND " + where_ignore_columns
 
         if limit > 0:
             query += " LIMIT " + str(limit)
@@ -51,7 +57,7 @@ class TableExtractor(DatabaseConnection):
                 WHERE tc.table_name = '" + self.table_name + "' AND tc.table_schema = '" + self.table_schema + "'"
 
         if only_fk:
-            query += " AND tc.constraint_type='FOREIGN KEY'"
+            query += " AND tc.constraint_type = 'FOREIGN KEY' AND ccu.table_name != '" + self.table_name + "'"
 
         self.special_columns = list(SQLSource(connection=self.db_pgconn, query=query))
 
@@ -121,3 +127,22 @@ class TableExtractor(DatabaseConnection):
         where_statement += " ) "
 
         return where_statement
+
+    @staticmethod
+    def get_ignore_columns(db_config):
+
+        ignore_columns = DBIgnore.objects.filter(ignore_type=DBIgnore.TYPE_COLUMN, db_config=db_config)
+
+        where_ignore_columns = ""
+
+        if ignore_columns.count() > 0:
+
+            where_ignore_columns = " ( "
+
+            for ignore_column in ignore_columns:
+                where_ignore_columns += "column_name != '" + ignore_column.name + "' AND "
+
+            where_ignore_columns = where_ignore_columns[:-4]
+            where_ignore_columns += " ) "
+
+        return where_ignore_columns

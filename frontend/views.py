@@ -66,7 +66,7 @@ class ResourceSearchView(View):
 
             table['verbose_name'] = util.verbose_name(table.get('table_name'))
 
-            table_columns = table_extractor.get_columns(special_columns=False, limit=3)
+            table_columns = table_extractor.get_columns(special_columns=False, limit=5)
 
             verbose_columns = []
             for column in table_columns:
@@ -74,7 +74,7 @@ class ResourceSearchView(View):
 
             table['columns'] = verbose_columns
 
-            table_data_sample = table_extractor.get_data(table_columns, 2)
+            table_data_sample = table_extractor.get_data(table_columns, 4)
             table['sample'] = table_data_sample
 
         PARAMETERS = {
@@ -104,9 +104,9 @@ class ResourceColumnsView(View):
         table_schema = request.POST['table_schema']
 
         table_extractor = TableExtractor(db_config, table_name, table_schema)
-        table_columns = table_extractor.get_columns(special_columns=False, limit=3)
+        table_columns = table_extractor.get_columns(special_columns=False)
 
-        data = table_extractor.get_data(table_columns, 5)
+        data = table_extractor.get_data(table_columns, 10)
 
         if len(table_extractor.get_special_columns()) > 1:
             has_secondary = True

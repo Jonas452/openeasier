@@ -183,7 +183,7 @@ class Resource(TimeStampedModel):
     )
 
     def resource_url(self):
-        return self.ckan.url + '/dataset/' + self.ckan_data_set_id + '/resource/' + self.ckan_resource_id
+        return self.ckan.url + 'dataset/' + self.ckan_data_set_id + '/resource/' + self.ckan_resource_id
 
     def get_last_schedule(self):
         return ResourceSchedule.objects.filter(resource=self).latest('schedule_date_time')

@@ -18,7 +18,7 @@ class DatabaseExtractor(DatabaseConnection):
         query = "SELECT \
                  table_name, table_schema \
                 FROM information_schema.tables \
-                WHERE " + schemas_where_statement + " {search} \
+                WHERE " + schemas_where_statement + " {search} AND table_type = 'BASE TABLE'\
                 ORDER BY table_name;"
 
         if search is not None:
