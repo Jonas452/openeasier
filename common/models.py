@@ -309,3 +309,16 @@ class DBIgnore(models.Model):
     class Meta:
         db_table = 'db_ignore'
         verbose_name = 'Ignore'
+
+
+class ResourceNotification(models.Model):
+    id = models.AutoField(primary_key=True)
+    email = models.EmailField()
+
+    resource = models.ForeignKey(
+        'Resource',
+        models.PROTECT,
+    )
+
+    class Meta:
+        db_table = 'resource_notification'

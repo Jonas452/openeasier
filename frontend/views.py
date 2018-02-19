@@ -8,7 +8,7 @@ from django.views.generic import View
 from backend.database.DatabaseExtractor import DatabaseExtractor
 from backend.database.TableExtractor import TableExtractor
 from common.models import CKANInstance, DBConfig, Resource, ResourceSchedule, DBSchema, DBTable, DBColumn, \
-    ResourceDataDictionary
+    ResourceDataDictionary, ResourceNotification
 from frontend.utils import util, util_search
 
 
@@ -484,3 +484,49 @@ class ResourceEditView(View):
         }
 
         return render(request, self.template_name, PARAMETERS)
+
+
+class ResourceNotificationView(View):
+    template_name = 'frontend/resource_notification.html'
+
+    def post(self, request, resource_id):
+
+        resource_notification = ResourceNotification()
+        resource_notification.email = request.POST['email']
+        resource_notification.resource_id = resource_id
+
+        try:
+            resource_notification.save()
+            messages.success(request, 'Resource notification saved with success!')
+        except Exception:
+            messages.error(request, 'Error while saving the resource notification.')
+
+        return redirect('frontend:resource_notification', resource_id)
+
+    def get(self, request, resource_id):
+        resource = Resource.objects.get(id=resource_id)
+
+        emails = ResourceNotification.objects.filter(resource=resource)
+
+        PARAMETERS = {
+            'resource': resource,
+            'emails': emails
+        }
+
+        return render(request, self.template_name, PARAMETERS)
+
+
+class NotificationDeleteView(View):
+
+    def post(self, request, email_id):
+
+        resource_notification = ResourceNotification.objects.get(id=email_id)
+        resource_id = resource_notification.resource_id
+
+        try:
+            resource_notification.delete()
+            messages.success(request, 'Resource notification deleted with success!')
+        except Exception:
+            messages.error(request, 'Error while deleting the resource notification.')
+
+        return redirect('frontend:resource_notification', resource_id)

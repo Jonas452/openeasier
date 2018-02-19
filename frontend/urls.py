@@ -46,6 +46,16 @@ urlpatterns = [
         views.ResourceScheduleView.as_view(),
         name='schedule_resource'),
 
+    # /index/resource/10/notification
+    url(r'^index/resource/(?P<resource_id>[0-9]+)/notification/$',
+        views.ResourceNotificationView.as_view(),
+        name='resource_notification'),
+
+    # /index/notification/10/delete
+    url(r'^index/notification/(?P<email_id>[0-9]+)/delete/$',
+        views.NotificationDeleteView.as_view(),
+        name='notification_delete'),
+
     # /index/resource/10/edit
     url(r'^index/resource/(?P<resource_id>[0-9]+)/edit/$',
         views.ResourceEditView.as_view(),
