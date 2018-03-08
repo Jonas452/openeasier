@@ -4,7 +4,7 @@
         <div class="card">
             <div class="header">
                 <div class="row clearfix">
-                    <div class="col-xs-12 col-sm-7">
+                    <div class="col-xs-12 col-sm-6">
                         <h2>
                             {% if resource.ckan_resource_id %}
                                 {{ resource.name }}
@@ -17,37 +17,40 @@
                         </h2>
                     </div>
 
-                    <div class="col-xs-12 col-sm-5 align-right" style="padding: 0px;">
-                        <div class="btn-toolbar" role="toolbar">
+                    <div class="col-xs-12 col-sm-6">
                             <div class="btn-group" role="group">
 
-                                <a href="{% url 'frontend:resource_edit' resource.id %}"
+                                <a type="button" href="{% url 'frontend:resource_edit' resource.id %}"
                                    class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right" title="Edit">
                                     <i class="material-icons">mode_edit</i>
                                 </a>
 
-                                <a href="{% url 'frontend:data_dictionary_resource' resource.id %}"
+                                <a type="button" href="{% url 'frontend:data_dictionary_resource' resource.id %}"
                                    class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right" title="Data Dictionary">
                                     <i class="material-icons">assignment</i>
                                 </a>
 
-                                <a href="{% url 'frontend:schedule_resource' resource.id %}"
+                                <a type="button" href="{% url 'frontend:schedule_resource' resource.id %}"
                                    class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right" title="Schedule">
                                     <i class="material-icons">alarm_add</i>
                                 </a>
 
-                                <a href="{% url 'frontend:resource_notification' resource.id %}"
+                                <a type="button" href="{% url 'frontend:resource_notification' resource.id %}"
                                    class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right" title="Notification">
                                     <i class="material-icons">email</i>
                                 </a>
 
-                                <a href="{{ resource.resource_url }}" target="_blank"
+                                <a type="button" href="{% url 'frontend:resource_log' resource.id %}"
+                                   class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right" title="Log">
+                                    <i class="material-icons">subject</i>
+                                </a>
+
+                                <a type="button" href="{{ resource.resource_url }}" target="_blank"
                                    class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right" title="Link">
                                     <i class="material-icons">link</i>
                                 </a>
 
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>

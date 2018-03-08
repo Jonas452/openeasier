@@ -6,15 +6,16 @@ from ckanapi import NotFound
 os.environ["DJANGO_SETTINGS_MODULE"] = 'openeasier.settings'
 django.setup()
 
-from common.models import CKANInstance
+from common.models import CKANInstance, PublicationLog
 from backend.pipeline.exceptions.LoaderException import DatasetNotFound, ResourceNotFound
-
+from backend.Log import Log
 
 class Loader:
-    def __init__(self, resource, my_ckan):
+    def __init__(self, resource, my_ckan, resource_schedule):
         self.resource = resource
         self.ckan_instance = CKANInstance.objects.get(id=self.resource.ckan.id)
         self.my_ckan = my_ckan
+        self.resource_schedule = resource_schedule
 
     def pre_run(self):
         # TODO CKAN EXISTS
@@ -31,6 +32,7 @@ class Loader:
         # TODO USER OK TO CREATE/UPDATE RESOURCE
 
     def run(self, csv_path):
+        Log.register('Sending CSV to CKAN', self.resource_schedule, PublicationLog.SUCCESS_TAG)
         if self.resource.ckan_resource_id:
             self.resource_published = self.my_ckan.action.resource_update(
                 id=self.resource.ckan_resource_id,

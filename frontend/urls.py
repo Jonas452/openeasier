@@ -51,6 +51,11 @@ urlpatterns = [
         views.ResourceNotificationView.as_view(),
         name='resource_notification'),
 
+    # /index/resource/10/notification
+    url(r'^index/resource/(?P<resource_id>[0-9]+)/log/$',
+        views.ResourceLogView.as_view(),
+        name='resource_log'),
+
     # /index/notification/10/delete
     url(r'^index/notification/(?P<email_id>[0-9]+)/delete/$',
         views.NotificationDeleteView.as_view(),

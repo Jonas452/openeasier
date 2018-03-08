@@ -322,3 +322,29 @@ class ResourceNotification(models.Model):
 
     class Meta:
         db_table = 'resource_notification'
+
+
+class PublicationLog(models.Model):
+    id = models.AutoField(primary_key=True)
+    log_message = models.TextField()
+    resource_schedule = models.ForeignKey(
+        'ResourceSchedule',
+        models.PROTECT,
+    )
+
+    SUCCESS_TAG = 'SUCCESS'
+    FAILED_TAG = 'FAILED'
+
+    TYPES_OF_STATUS = (
+        (SUCCESS_TAG, 'SUCCESS'),
+        (FAILED_TAG, 'FAILED'),
+    )
+
+    log_status = models.CharField(
+        max_length=7,
+        choices=TYPES_OF_STATUS)
+
+    log_time = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'publication_log'

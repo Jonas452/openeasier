@@ -8,7 +8,7 @@ from django.views.generic import View
 from backend.database.DatabaseExtractor import DatabaseExtractor
 from backend.database.TableExtractor import TableExtractor
 from common.models import CKANInstance, DBConfig, Resource, ResourceSchedule, DBSchema, DBTable, DBColumn, \
-    ResourceDataDictionary, ResourceNotification
+    ResourceDataDictionary, ResourceNotification, PublicationLog
 from frontend.utils import util, util_search
 
 
@@ -460,7 +460,6 @@ class ResourceEditView(View):
     template_name = 'frontend/resource_edit.html'
 
     def post(self, request, resource_id):
-
         resource = Resource.objects.get(id=resource_id)
 
         resource.name = request.POST['name']
@@ -530,3 +529,24 @@ class NotificationDeleteView(View):
             messages.error(request, 'Error while deleting the resource notification.')
 
         return redirect('frontend:resource_notification', resource_id)
+
+
+class ResourceLogView(View):
+    template_name = 'frontend/resource_log.html'
+
+    def get(self, request, resource_id):
+        resource = Resource.objects.get(id=resource_id)
+
+        resource_schedule = ResourceSchedule.objects.filter(resource=resource)
+        resource_schedule = resource_schedule.exclude(execution_status=ResourceSchedule.STATUS_SCHEDULED)
+        resource_schedule = resource_schedule.last()
+
+        logs = PublicationLog.objects.filter(resource_schedule=resource_schedule)
+
+        PARAMETERS = {
+            'resource': resource,
+            'resource_schedule': resource_schedule,
+            'logs': logs
+        }
+
+        return render(request, self.template_name, PARAMETERS)

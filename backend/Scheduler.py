@@ -5,7 +5,8 @@ from datetime import datetime as DateTime, timedelta as TimeDelta
 os.environ["DJANGO_SETTINGS_MODULE"] = 'openeasier.settings'
 django.setup()
 
-from common.models import Resource, ResourceSchedule
+from common.models import Resource, ResourceSchedule, PublicationLog
+from backend.Log import Log
 
 
 class Scheduler:

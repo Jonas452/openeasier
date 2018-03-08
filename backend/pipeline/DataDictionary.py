@@ -10,15 +10,17 @@ from reportlab.lib.units import mm
 os.environ["DJANGO_SETTINGS_MODULE"] = 'openeasier.settings'
 django.setup()
 
-from common.models import Resource, DBColumn, DBTable, ResourceDataDictionary
+from common.models import Resource, DBColumn, DBTable, ResourceDataDictionary, PublicationLog
+from backend.Log import Log
 
 
 class DataDictionary:
-    def __init__(self, resource, my_ckan):
+    def __init__(self, resource, my_ckan, resource_schedule):
         self.resource = resource
         self.my_ckan = my_ckan
         self.data_dictionary = ResourceDataDictionary.objects.get(resource=resource)
         self.table = resource.table
+        self.resource_schedule = resource_schedule
 
         self.parcial_path = 'working/' + self.table.name
 
@@ -27,7 +29,10 @@ class DataDictionary:
         pass
 
     def run(self):
+        Log.register('Creating data dictionary file', self.resource_schedule, PublicationLog.SUCCESS_TAG)
         self.create_dictionary()
+
+        Log.register('Sending data dictionary file', self.resource_schedule, PublicationLog.SUCCESS_TAG)
         self.upload_dictionary()
 
     def create_dictionary(self):
