@@ -7,6 +7,7 @@ from django.views.generic import View
 
 from backend.database.DatabaseExtractor import DatabaseExtractor
 from backend.database.TableExtractor import TableExtractor
+from backend.DataQuality import DataQuality
 from common.models import CKANInstance, DBConfig, Resource, ResourceSchedule, DBSchema, DBTable, DBColumn, \
     ResourceDataDictionary, ResourceNotification, PublicationLog
 from frontend.utils import util, util_search
@@ -550,3 +551,28 @@ class ResourceLogView(View):
         }
 
         return render(request, self.template_name, PARAMETERS)
+
+class ResourceDataQualityAssessmentView(View):
+    template_name = 'frontend/resource_data_quality_assessment.html'
+
+    def post(self, request, resource_id):
+        return render(request, self.template_name)
+
+    def get(self, request, resource_id):
+        resource = Resource.objects.get(id=resource_id)
+
+        resource_schedule = ResourceSchedule.objects.filter(resource=resource)
+        resource_schedule = resource_schedule.exclude(execution_status=ResourceSchedule.STATUS_SCHEDULED)
+        resource_schedule = resource_schedule.last()
+
+        data_quality = DataQuality(resource_id)
+
+        PARAMETERS = {
+            'resource': resource,
+            'resource_schedule': resource_schedule,
+            'columns_missing_data': data_quality.columns_missing_data_(),
+            'columns_format_consistency': data_quality.columns_format_consistency(),
+        }
+
+        return render(request, self.template_name, PARAMETERS)
+

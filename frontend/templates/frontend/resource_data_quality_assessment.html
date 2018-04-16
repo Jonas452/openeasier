@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Resource Data Quality Assessment | OpenEasier{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+
+                    <div class="header">
+                        <h2>RESOURCE DATA QUALITY ASSESSMENT</h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+                                   role="button"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);">HELP</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="body">
+
+                        <div class="form-group">
+                            <label>Resource Name</label>
+                            <br><span>{{ resource.name }} - {{ resource.ckan.name }}</span> <a
+                                href="{{ resource.resource_url }}" target="_blank">(link)</a>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last execution</label>
+                            <br><span>{{ resource_schedule.schedule_date_time }} - {{ resource_schedule.execution_status }}</span>
+                        </div>
+
+                        <div class="panel-group" id="accordion_9" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-col-teal">
+                                <div class="panel-heading" role="tab" id="headingOne_9">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion_9"
+                                           href="#collapseOne_9" aria-expanded="true" aria-controls="collapseOne_9">
+                                            Missing Data
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne_9" class="panel-collapse collapse in" role="tabpanel"
+                                     aria-labelledby="headingOne_9">
+                                    <div class="panel-body">
+                                        <div class="body table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                <tr>
+                                                    <th>COLUMN</th>
+                                                    <th>MISSING PERCENTAGE</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for column in columns_missing_data %}
+                                                    <tr class="{{ column.bg_color }}">
+                                                        <td style="color: black; font-weight: bold;">{{ column.name }}</td>
+                                                        <td style="color: black; font-weight: bold;">{{ column.missing }}%</td>
+                                                    </tr>
+                                                {% empty %}
+                                                    <tr class="">
+                                                        <td colspan="2">
+                                                            <div class="align-center">
+                                                                <h6>NO DATA FOUND</h6>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-col-teal">
+                                <div class="panel-heading" role="tab" id="headingTwo_9">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse"
+                                           data-parent="#accordion_9" href="#collapseTwo_9" aria-expanded="false"
+                                           aria-controls="collapseTwo_9">
+                                            Data Format Consistency
+                                        </a>
+                                    </h4>
+                                </div>
+
+                                <div id="collapseTwo_9" class="panel-collapse collapse" role="tabpanel"
+                                     aria-labelledby="headingTwo_9">
+                                    <div class="panel-body">
+
+                                        <div id="collapseOne_9" class="panel-collapse collapse in" role="tabpanel"
+                                             aria-labelledby="headingOne_9">
+                                            <div class="panel-body">
+                                                <div class="body table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>COLUMN</th>
+                                                            <th>NUMERIC PERCENTAGE</th>
+                                                            <th>TEXT PERCENTAGE</th>
+                                                            <th>DATE PERCENTAGE</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for column in columns_format_consistency %}
+                                                            <tr class="{{ column.bg_color }}">
+                                                                <td style="color: black; font-weight: bold;">{{ column.name }}</td>
+                                                                <td style="color: black; font-weight: bold;">{{ column.numeric_count }}%</td>
+                                                                <td style="color: black; font-weight: bold;">{{ column.text_count }}%</td>
+                                                                <td style="color: black; font-weight: bold;">{{ column.date_count }}%</td>
+                                                            </tr>
+                                                        {% empty %}
+                                                            <tr class="">
+                                                                <td colspan="2">
+                                                                    <div class="align-center">
+                                                                        <h6>NO DATA FOUND</h6>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="{% url 'frontend:panel_resource' %}" class="btn bg-teal waves-effect">
+                            <i class="material-icons">arrow_back</i>
+                            <span>BACK</span>
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}

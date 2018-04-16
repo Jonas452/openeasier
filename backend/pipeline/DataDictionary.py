@@ -18,7 +18,11 @@ class DataDictionary:
     def __init__(self, resource, my_ckan, resource_schedule):
         self.resource = resource
         self.my_ckan = my_ckan
-        self.data_dictionary = ResourceDataDictionary.objects.get(resource=resource)
+        try:
+            self.data_dictionary = ResourceDataDictionary.objects.get(resource=resource)
+        except Exception as ex:
+            self.data_dictionary = None
+
         self.table = resource.table
         self.resource_schedule = resource_schedule
 
@@ -29,11 +33,12 @@ class DataDictionary:
         pass
 
     def run(self):
-        Log.register('Creating data dictionary file', self.resource_schedule, PublicationLog.SUCCESS_TAG)
-        self.create_dictionary()
+        if self.data_dictionary is not None:
+            Log.register('Creating data dictionary file', self.resource_schedule, PublicationLog.SUCCESS_TAG)
+            self.create_dictionary()
 
-        Log.register('Sending data dictionary file', self.resource_schedule, PublicationLog.SUCCESS_TAG)
-        self.upload_dictionary()
+            Log.register('Sending data dictionary file', self.resource_schedule, PublicationLog.SUCCESS_TAG)
+            self.upload_dictionar()
 
     def create_dictionary(self):
         self.file = self.parcial_path + "/dictionary_" + self.table.name + ".pdf"
@@ -154,4 +159,5 @@ class DataDictionary:
         self.data_dictionary.save()
 
     def pos_run(self):
-        self.set_dictionary_resource_id()
+        if self.data_dictionary is not None:
+            self.set_dictionary_resource_id()

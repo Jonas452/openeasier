@@ -71,4 +71,9 @@ urlpatterns = [
         views.ResourceDataDictionaryView.as_view(),
         name='data_dictionary_resource'),
 
+    # /index/resource/10/data_quality
+    url(r'^index/resource/(?P<resource_id>[0-9]+)/data_quality/$',
+        views.ResourceDataQualityAssessmentView.as_view(),
+        name='data_quality_resource'),
+
 ]
