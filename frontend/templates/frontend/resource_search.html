@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% load staticfiles %}
 
@@ -16,7 +17,7 @@
             <div class="card">
                 <div class="header">
                     <h2>
-                        SEARCH RESOURCES
+                        {% trans 'SEARCH RESOURCES' %}
                     </h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
@@ -25,7 +26,7 @@
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">HELP</a></li>
+                                <li><a href="javascript:void(0);">{% trans 'HELP' %}</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -40,7 +41,7 @@
                             <div class="col-sm-5">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <label class="form-label">Data Source</label> <br>
+                                        <label class="form-label">{% trans 'Data Source' %}</label> <br>
                                         <select name="database_id" class="form-control show-tick" required>
                                             <!--<option value="0">-- Select a option --</option>-->
                                             {% for database in user_databases %}
@@ -56,7 +57,7 @@
                                     <div class="form-line">
                                         <input type="text" name="search" id="search" class="form-control"
                                                value="{{ search_word }}"
-                                               placeholder="Enter the words to search for new data" required autofocus>
+                                               placeholder="{% trans 'Enter the words to search for new data' %}" required autofocus>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +66,7 @@
                                 <div class="form-group">
                                     <button type="submit" class="btn bg-teal waves-effect">
                                         <i class="material-icons">search</i>
-                                        <span>SEARCH</span>
+                                        <span>{% trans 'SEARCH' %}</span>
                                     </button>
                                 </div>
                             </div>
@@ -78,8 +79,8 @@
 
                         {% if request.POST %}
 
-                            <h2 class="card-inside-title">RESULTS
-                                <small>for search <b>{ {{ search }} }</b> in database <b>{ {{ database.title }} }</b>
+                            <h2 class="card-inside-title">{% trans 'RESULTS' %}
+                                <small>{% trans 'for search' %} <b>{ {{ search }} } {% trans '</b> in database <b>' %}{ {{ database.title }} }</b>
                                 </small>
                             </h2>
 
@@ -98,7 +99,7 @@
                                 {% else %}
 
                                     <div class="align-center">
-                                        <h4>NO RESULTS FOUND FOR THE SEARCH</h4>
+                                        <h4>{% trans 'NO RESULTS FOUND FOR THE SEARCH' %}</h4>
                                     </div>
 
                                 {% endif %}

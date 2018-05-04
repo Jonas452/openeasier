@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% load staticfiles %}
 
@@ -20,7 +21,7 @@
             <div class="card">
 
                 <div class="header">
-                    <h2>SCHEDULE RESOURCE</h2>
+                    <h2>{% trans 'SCHEDULE RESOURCE' %}</h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -28,7 +29,7 @@
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">HELP</a></li>
+                                <li><a href="javascript:void(0);">{% trans 'HELP' %}</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -40,27 +41,27 @@
                         {% csrf_token %}
 
                         <div class="form-group">
-                            <label>Resource Name</label>
+                            <label>{% trans 'Resource Name' %}</label>
                             <br><span>{{ resource.name }} - {{ resource.ckan.name }}</span>
                         </div>
 
                         <input type="hidden" name="resource_id" value="{{ resource.id }}"/>
 
                         <div class="form-group">
-                            <label>Date of first execution</label>
+                            <label>{% trans 'Date of first execution' %}</label>
                             <div class="input-group">
                                             <span class="input-group-addon">
                                                 <i class="material-icons">date_range</i>
                                             </span>
                                 <div class="form-line">
-                                    <input type="date" class="datepicker form-control" placeholder="Please choose a date..." name="schedule_date_time" value="{{ resource.schedule_date_time|date:"Y-m-d" }}" required>
+                                    <input type="date" class="datepicker form-control" placeholder="{% trans 'Please choose a date...' %}" name="schedule_date_time" value="{{ resource.schedule_date_time|date:"Y-m-d" }}" required>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
 
-                            <label class="">Frequency</label> <br>
+                            <label class="">{% trans 'Frequency' %}</label> <br>
                             <select name="schedule_type" class="form-control show-tick">
                                 <option {% if resource.schedule_type == "DAY" %}selected="selected"{% endif %} value="DAY">EVERY DAY</option>
                                 <option {% if resource.schedule_type == "WEEK" %}selected="selected"{% endif %} value="WEEK">EVERY WEEK</option>
@@ -73,11 +74,11 @@
                         <div class="form-group">
                             <a href="{% url 'frontend:panel_resource' %}" class="btn bg-teal waves-effect">
                                 <i class="material-icons">arrow_back</i>
-                                <span>BACK</span>
+                                <span>{% trans 'BACK' %}</span>
                             </a>
                             <button type="submit" class="btn bg-teal waves-effect">
                                 <i class="material-icons">done</i>
-                                <span>FINISH</span>
+                                <span>{% trans 'FINISH' %}</span>
                             </button>
                         </div>
 

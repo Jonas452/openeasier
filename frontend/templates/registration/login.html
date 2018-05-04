@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}Sign in | OpenEasier{% endblock %}
 
@@ -12,7 +13,7 @@
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                     aria-hidden="true">&times;</span>
             </button>
-            <p>Something went wrong! Please, check if your <b>username</b> and <b>password</b> are correct.</p>
+            <p>{% trans 'Something went wrong! Please, check if your <b>username</b> and <b>password</b> are correct.' %}</p>
         </div>
     {% endif %}
 
@@ -28,7 +29,7 @@
                 <form method="POST" action="{% url 'frontend:login' %}">
                     {% csrf_token %}
 
-                    <div class="msg">Sign in to start your session</div>
+                    <div class="msg">{% trans 'Sign in to start your session' %}</div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
@@ -53,7 +54,7 @@
 
                     <button type="submit" class="btn btn-block bg-teal waves-effect">
                         <i class="material-icons">account_circle</i>
-                        <span>SIGN IN</span>
+                        <span>{% trans 'SIGN IN' %}</span>
                     </button>
 
                     <input type="hidden" name="next" value="{{ next }}"/>

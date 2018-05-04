@@ -1,0 +1,380 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-04 14:46-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\frontend\templates\base.html:108
+msgid "MAIN NAVIGATION"
+msgstr "BARRA NAVEGAÇÃO"
+
+#: .\frontend\templates\base.html:113
+msgid "Resources Panel"
+msgstr "Painel de Dados"
+
+#: .\frontend\templates\base.html:119
+msgid "Add new Resource"
+msgstr "Publicar Dados"
+
+#: .\frontend\templates\base.html:132
+msgid "Version"
+msgstr "Versão"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:28
+msgid "Edit"
+msgstr "Atualizar"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:34
+msgid "Data Dictionary"
+msgstr "Dicionário de Dados"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:40
+#, fuzzy
+#| msgid "Scheduled to:"
+msgid "Schedule"
+msgstr "Agendado para:"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:46
+msgid "Notification"
+msgstr "Notificação"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:80
+msgid "Description:"
+msgstr "Descrição"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:86
+msgid "Scheduled to:"
+msgstr "Agendado para:"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:91
+msgid "Not scheduled"
+msgstr "Não agendado"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:95
+msgid "Last update:"
+msgstr "Última atualização"
+
+#: .\frontend\templates\frontend\_item_simple_table.html:23
+msgid "CHOOSE"
+msgstr "ESCOLHER"
+
+#: .\frontend\templates\frontend\_item_simple_table.html:56
+msgid "TABLE WITHOUT DATA"
+msgstr "SEM DADOS"
+
+#: .\frontend\templates\frontend\resource_columns.html:27
+msgid "CHOOSE THE COLUMNS OF THE RESOURCE"
+msgstr "ESCOLHA AS COLUNAS PARA SEREM PUBLICADAS"
+
+#: .\frontend\templates\frontend\resource_columns.html:28
+#: .\frontend\templates\frontend\resource_create.html:31
+#: .\frontend\templates\frontend\resource_secondary_columns.html:28
+msgid "for table"
+msgstr "para a tabela"
+
+#: .\frontend\templates\frontend\resource_columns.html:28
+#: .\frontend\templates\frontend\resource_create.html:31
+#: .\frontend\templates\frontend\resource_secondary_columns.html:28
+msgid "in database"
+msgstr "no banco de dados"
+
+#: .\frontend\templates\frontend\resource_columns.html:37
+#: .\frontend\templates\frontend\resource_create.html:41
+#: .\frontend\templates\frontend\resource_data_dictionary.html:21
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:26
+#: .\frontend\templates\frontend\resource_edit.html:38
+#: .\frontend\templates\frontend\resource_log.html:26
+#: .\frontend\templates\frontend\resource_notification.html:44
+#: .\frontend\templates\frontend\resource_schedule.html:32
+#: .\frontend\templates\frontend\resource_search.html:29
+#: .\frontend\templates\frontend\resource_secondary_columns.html:37
+msgid "HELP"
+msgstr "AJUDA"
+
+#: .\frontend\templates\frontend\resource_columns.html:95
+#: .\frontend\templates\frontend\resource_secondary_columns.html:111
+msgid "CONTINUE"
+msgstr "CONTINUAR"
+
+#: .\frontend\templates\frontend\resource_create.html:30
+msgid "FILL THE INFORMATION ABOUT THE RESOURCE"
+msgstr "PREENCHA AS INFORMAÇÕES DO RECURSO"
+
+#: .\frontend\templates\frontend\resource_create.html:32
+msgid "with columns"
+msgstr "com as colunas"
+
+#: .\frontend\templates\frontend\resource_create.html:82
+msgid "Basic Information"
+msgstr "Informações básicas"
+
+#: .\frontend\templates\frontend\resource_create.html:86
+#: .\frontend\templates\frontend\resource_edit.html:53
+msgid "CKAN Dataset"
+msgstr "Conjundo de Dados do CKAN"
+
+#: .\frontend\templates\frontend\resource_create.html:88
+msgid "Select a option"
+msgstr "Selecionar Opção"
+
+#: .\frontend\templates\frontend\resource_create.html:98
+#: .\frontend\templates\frontend\resource_edit.html:60
+msgid "Name"
+msgstr "Nome"
+
+#: .\frontend\templates\frontend\resource_create.html:100
+#: .\frontend\templates\frontend\resource_edit.html:62
+msgid "Inform the name of your Resource"
+msgstr "Nome do recurso"
+
+#: .\frontend\templates\frontend\resource_create.html:106
+#: .\frontend\templates\frontend\resource_edit.html:68
+msgid "Description"
+msgstr "Descrição"
+
+#: .\frontend\templates\frontend\resource_create.html:108
+#: .\frontend\templates\frontend\resource_edit.html:70
+msgid "Describe your Resource here"
+msgstr "Descreva o seu Recurso"
+
+#: .\frontend\templates\frontend\resource_create.html:115
+#: .\frontend\templates\frontend\resource_data_dictionary.html:67
+#: .\frontend\templates\frontend\resource_edit.html:81
+#: .\frontend\templates\frontend\resource_schedule.html:81
+msgid "FINISH"
+msgstr "FINALIZAR"
+
+#: .\frontend\templates\frontend\resource_data_dictionary.html:13
+msgid "RESOURCE DATA DICTIONARY"
+msgstr "DICIONÁRIO DE DADOS DO RECURSO"
+
+#: .\frontend\templates\frontend\resource_data_dictionary.html:33
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:35
+#: .\frontend\templates\frontend\resource_log.html:35
+#: .\frontend\templates\frontend\resource_notification.html:56
+#: .\frontend\templates\frontend\resource_schedule.html:44
+msgid "Resource Name"
+msgstr "Nome do Recurso"
+
+#: .\frontend\templates\frontend\resource_data_dictionary.html:41
+msgid "Resource Data Dictionary Description"
+msgstr "Descrição do Dicionário de Dados do Recurso"
+
+#: .\frontend\templates\frontend\resource_data_dictionary.html:47
+msgid "Describe the columns:"
+msgstr "Descreva as colunas:"
+
+#: .\frontend\templates\frontend\resource_data_dictionary.html:63
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:146
+#: .\frontend\templates\frontend\resource_edit.html:77
+#: .\frontend\templates\frontend\resource_log.html:79
+#: .\frontend\templates\frontend\resource_notification.html:72
+#: .\frontend\templates\frontend\resource_schedule.html:77
+msgid "BACK"
+msgstr "VOLTAR"
+
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:17
+msgid "RESOURCE DATA QUALITY ASSESSMENT"
+msgstr "AVALIAÇÃO DA QUALIDADE DOS DADOS DO RECURSO"
+
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:41
+#: .\frontend\templates\frontend\resource_log.html:40
+msgid "Last execution"
+msgstr "Última Execução"
+
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:51
+msgid "Missing Data"
+msgstr "Dados Faltosos"
+
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:62
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:110
+msgid "COLUMN"
+msgstr "COLUNA"
+
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:63
+msgid "MISSING PERCENTAGE"
+msgstr "PORCENTAGE DE DADOS FALTOSOS"
+
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:76
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:128
+#: .\frontend\templates\frontend\resource_log.html:66
+#: .\frontend\templates\frontend\resource_notification.html:116
+msgid "NO DATA FOUND"
+msgstr "NENHUM DADO ENCONTRADO"
+
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:94
+msgid "Data Format Consistency"
+msgstr "Consistência do Formato dos Dados"
+
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:111
+msgid "NUMERIC PERCENTAGE"
+msgstr "PORCENTAGEM DE NÚMERICOS"
+
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:112
+msgid "TEXT PERCENTAGE"
+msgstr "PORCENTAGEM DE TEXTOS"
+
+#: .\frontend\templates\frontend\resource_data_quality_assessment.html:113
+msgid "DATE PERCENTAGE"
+msgstr "PORCENTAGEM DE DATAS"
+
+#: .\frontend\templates\frontend\resource_edit.html:29
+msgid "EDIT THE INFORMATION FROM THE RESOURCE"
+msgstr "ATUALIZAR AS INFORMAÇÕES DO RECURSO"
+
+#: .\frontend\templates\frontend\resource_log.html:17
+msgid "RESOURCE LOG"
+msgstr "LOG DO RECURSO"
+
+#: .\frontend\templates\frontend\resource_log.html:50
+msgid "MESSAGE"
+msgstr "MENSAGEM"
+
+#: .\frontend\templates\frontend\resource_log.html:51
+msgid "STATUS"
+msgstr "SITUAÇÃO"
+
+#: .\frontend\templates\frontend\resource_log.html:52
+msgid "TIME"
+msgstr "TEMPO"
+
+#: .\frontend\templates\frontend\resource_notification.html:35
+msgid "RESOURCE NOTIFICATION"
+msgstr "NOTIFICAÇÃO DO RECURSO"
+
+#: .\frontend\templates\frontend\resource_notification.html:76
+msgid "SAVE"
+msgstr "SALVAR"
+
+#: .\frontend\templates\frontend\resource_notification.html:94
+msgid "ACTION"
+msgstr "AÇÃO"
+
+#: .\frontend\templates\frontend\resource_panel.html:11
+msgid "PANEL OF RESOURCES"
+msgstr "PAINEL DE RECURSOS"
+
+#: .\frontend\templates\frontend\resource_schedule.html:24
+msgid "SCHEDULE RESOURCE"
+msgstr "AGENDAR RECURSO"
+
+#: .\frontend\templates\frontend\resource_schedule.html:51
+msgid "Date of first execution"
+msgstr "Data da primeira execução"
+
+#: .\frontend\templates\frontend\resource_schedule.html:57
+msgid "Please choose a date..."
+msgstr "Por favor, escolha uma data"
+
+#: .\frontend\templates\frontend\resource_schedule.html:64
+msgid "Frequency"
+msgstr "Frequência"
+
+#: .\frontend\templates\frontend\resource_search.html:20
+msgid "SEARCH RESOURCES"
+msgstr "PESQUISAR POR RECURSOS"
+
+#: .\frontend\templates\frontend\resource_search.html:44
+msgid "Data Source"
+msgstr "FONTE DE DADOS"
+
+#: .\frontend\templates\frontend\resource_search.html:60
+msgid "Enter the words to search for new data"
+msgstr "Escreva as palavras para procurar por novos dados"
+
+#: .\frontend\templates\frontend\resource_search.html:69
+msgid "SEARCH"
+msgstr "PESQUISAR"
+
+#: .\frontend\templates\frontend\resource_search.html:82
+msgid "RESULTS"
+msgstr "RESULTADOS"
+
+#: .\frontend\templates\frontend\resource_search.html:83
+msgid "for search"
+msgstr "para a pesquisa"
+
+#: .\frontend\templates\frontend\resource_search.html:83
+msgid "</b> in database <b>"
+msgstr "</b> no banco de dados <b>"
+
+#: .\frontend\templates\frontend\resource_search.html:102
+msgid "NO RESULTS FOUND FOR THE SEARCH"
+msgstr "NENHUM RESULTADO ENCONTRADO PARA ESTA PESQUISA"
+
+#: .\frontend\templates\frontend\resource_secondary_columns.html:27
+msgid "CHOOSE THE SECONDARY COLUMNS OF THE RESOURCE"
+msgstr "ESCOLHA AS COLUNAS SECUNDÁRIA PARA O RECURSO"
+
+#: .\frontend\templates\registration\logged_out.html:16
+msgid "User <b>logged out</b> with success!"
+msgstr "Usuário <b> deslogou</b> com sucesso!"
+
+#: .\frontend\templates\registration\logged_out.html:36
+msgid "SIGN IN HERE"
+msgstr "FAZER LOGIN AQUI"
+
+#: .\frontend\templates\registration\login.html:16
+msgid ""
+"Something went wrong! Please, check if your <b>username</b> and <b>password</"
+"b> are correct."
+msgstr ""
+"Algo deu erro! Por favor, verifique se seu <b>username</b> e <b>password</b> "
+"estão corretos."
+
+#: .\frontend\templates\registration\login.html:32
+msgid "Sign in to start your session"
+msgstr "Faça login para começar a utilizar"
+
+#: .\frontend\templates\registration\login.html:57
+msgid "SIGN IN"
+msgstr "FAZER LOGIN"
+
+#: .\frontend\views.py:265
+msgid "Resource created with success!"
+msgstr "Recurso criado com sucesso!"
+
+#: .\frontend\views.py:324
+msgid "Resource scheduled with success!"
+msgstr "Recurso agendado com sucesso!"
+
+#: .\frontend\views.py:361
+msgid "Resource Data Dictionary created with success!"
+msgstr "Dicionário de Dados do Recurso criado com sucesso!"
+
+#: .\frontend\views.py:472
+msgid "Resource edited with success!"
+msgstr "Recurso atualizado com sucesso!"
+
+#: .\frontend\views.py:501
+msgid "Resource notification saved with success!"
+msgstr "Notificação do Recurso salvo com sucesso!"
+
+#: .\frontend\views.py:503
+msgid "Error while saving the resource notification."
+msgstr "Erro ao salvar as notificações do recurso."
+
+#: .\frontend\views.py:529
+msgid "Resource notification deleted with success!"
+msgstr "Notificação do recurso excluída com sucesso!"
+
+#: .\frontend\views.py:531
+msgid "Error while deleting the resource notification."
+msgstr "Erro ao excluír a notificação do recurso."
+
+#~ msgid "Describe youer Resource here"
+#~ msgstr "Descreva o Recurso"

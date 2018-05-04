@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% load staticfiles %}
 
@@ -7,7 +8,7 @@
 {% block content %}
 
     <div class="block-header align-center">
-        <h2>PANEL OF RESOURCES</h2>
+        <h2>{% trans 'PANEL OF RESOURCES' %}</h2>
     </div>
 
     {% if messages %}

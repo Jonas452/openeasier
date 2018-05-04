@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <div class="col-sm-6">
     <div class="card">
 
@@ -18,7 +20,7 @@
                         <input type="hidden" name="table_schema" value="{{ table.table_schema }}">
 
                         <button type="submit" class="btn bg-teal btn-block btn-sm waves-effect">
-                            <span>CHOOSE</span>
+                            <span>{% trans 'CHOOSE' %}</span>
                         </button>
                     </form>
 
@@ -51,7 +53,7 @@
                 </table>
             {% else %}
                 <div class="align-center">
-                    <h6>TABLE WITHOUT DATA</h6>
+                    <h6>{% trans 'TABLE WITHOUT DATA' %}</h6>
                 </div>
             {% endif %}
 

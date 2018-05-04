@@ -1,4 +1,5 @@
 from datetime import datetime as DateTime
+from django.utils.translation import ugettext as _
 
 from ckanapi import RemoteCKAN
 from django.contrib import messages
@@ -261,7 +262,7 @@ class ResourceCreateView(View):
 
             resource.save()
 
-            messages.success(request, 'Resource created with success!')
+            messages.success(request, _('Resource created with success!'))
 
             return redirect('frontend:panel_resource')
 
@@ -320,7 +321,7 @@ class ResourceScheduleView(View):
 
         resource_schedule.save()
 
-        messages.success(request, 'Resource scheduled with success!')
+        messages.success(request, _('Resource scheduled with success!'))
 
         return redirect('frontend:panel_resource')
 
@@ -357,7 +358,7 @@ class ResourceDataDictionaryView(View):
             temp_column.dd_description = request.POST['column_' + str(column)]
             temp_column.save()
 
-        messages.success(request, 'Resource Data Dictionary created with success!')
+        messages.success(request, _('Resource Data Dictionary created with success!'))
 
         return redirect('frontend:panel_resource')
 
@@ -468,7 +469,7 @@ class ResourceEditView(View):
 
         resource.save()
 
-        messages.success(request, 'Resource edited with success!')
+        messages.success(request, _('Resource edited with success!'))
 
         return redirect('frontend:panel_resource')
 
@@ -497,9 +498,9 @@ class ResourceNotificationView(View):
 
         try:
             resource_notification.save()
-            messages.success(request, 'Resource notification saved with success!')
+            messages.success(request, _('Resource notification saved with success!'))
         except Exception:
-            messages.error(request, 'Error while saving the resource notification.')
+            messages.error(request, _('Error while saving the resource notification.'))
 
         return redirect('frontend:resource_notification', resource_id)
 
@@ -525,9 +526,9 @@ class NotificationDeleteView(View):
 
         try:
             resource_notification.delete()
-            messages.success(request, 'Resource notification deleted with success!')
+            messages.success(request, _('Resource notification deleted with success!'))
         except Exception:
-            messages.error(request, 'Error while deleting the resource notification.')
+            messages.error(request, _('Error while deleting the resource notification.'))
 
         return redirect('frontend:resource_notification', resource_id)
 

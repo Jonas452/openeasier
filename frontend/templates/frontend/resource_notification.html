@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% load staticfiles %}
 
@@ -31,7 +32,7 @@
                 <div class="card">
 
                     <div class="header">
-                        <h2>RESOURCE NOTIFICATION</h2>
+                        <h2>{% trans 'RESOURCE NOTIFICATION' %}</h2>
                         <ul class="header-dropdown m-r--5">
                             <li class="dropdown">
                                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
@@ -40,7 +41,7 @@
                                     <i class="material-icons">more_vert</i>
                                 </a>
                                 <ul class="dropdown-menu pull-right">
-                                    <li><a href="javascript:void(0);">HELP</a></li>
+                                    <li><a href="javascript:void(0);">{% trans 'HELP' %}</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -52,7 +53,7 @@
                             {% csrf_token %}
 
                             <div class="form-group">
-                                <label>Resource Name</label>
+                                <label>{% trans 'Resource Name' %}</label>
                                 <br><span>{{ resource.name }} - {{ resource.ckan.name }}</span>
                             </div>
 
@@ -68,11 +69,11 @@
                             <div class="form-group">
                                 <a href="{% url 'frontend:panel_resource' %}" class="btn bg-teal waves-effect">
                                     <i class="material-icons">arrow_back</i>
-                                    <span>BACK</span>
+                                    <span>{% trans 'BACK' %}</span>
                                 </a>
                                 <button type="submit" class="btn bg-teal waves-effect">
                                     <i class="material-icons">save</i>
-                                    <span>SAVE</span>
+                                    <span>{% trans 'SAVE' %}</span>
                                 </button>
                             </div>
 
@@ -90,7 +91,7 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th style="max-width: 10px">ACTION</th>
+                                <th style="max-width: 10px">{% trans 'ACTION' %}</th>
                                 <th>EMAIL</th>
                             </tr>
                             </thead>
@@ -112,7 +113,7 @@
                                 <tr>
                                     <td colspan="2">
                                         <div class="align-center">
-                                            <h6>NO DATA FOUND</h6>
+                                            <h6>{% trans 'NO DATA FOUND' %}</h6>
                                         </div>
                                     </td>
                                 </tr>

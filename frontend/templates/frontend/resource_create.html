@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% load staticfiles %}
 
@@ -26,9 +27,9 @@
 
                 <div class="header">
                     <h2>
-                        FILL THE INFORMATION ABOUT THE RESOURCE
-                        <small>for table <b>{ {{ table_name }} }</b> in database <b>{ {{ database.title }} }</b></small>
-                        <small>with columns <b>{ {{ columns_label }} }</b></small>
+                        {% trans 'FILL THE INFORMATION ABOUT THE RESOURCE' %}
+                        <small>{% trans 'for table' %} <b>{ {{ table_name }} }</b> {% trans 'in database' %} <b>{ {{ database.title }} }</b></small>
+                        <small>{% trans 'with columns' %} <b>{ {{ columns_label }} }</b></small>
                     </h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
@@ -37,7 +38,7 @@
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">HELP</a></li>
+                                <li><a href="javascript:void(0);">{% trans 'HELP' %}</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -78,13 +79,13 @@
                         <input type="hidden" name="table_schema" value="{{ table_schema }}"/>
                         <input type="hidden" name="primary_key" value="{{ primary_key }}"/>
 
-                        <h4>Basic Information</h4>
+                        <h4>{% trans 'Basic Information' %}</h4>
 
                         <div class="form-group">
                             <div class="form-line">
-                                <label class="">CKAN Dataset</label> <br>
+                                <label class="">{% trans 'CKAN Dataset' %}</label> <br>
                                 <select name="dataset" class="form-control show-tick">
-                                    <option value="0">-- Select a option --</option>
+                                    <option value="0">-- {% trans 'Select a option' %} --</option>
                                     {% for dataset in datasets %}
                                         <option value="{{ dataset }}">{{ dataset }}</option>
                                     {% endfor %}
@@ -94,24 +95,24 @@
 
                         <div class="form-group">
                             <div class="form-line">
-                                <label>Name</label>
+                                <label>{% trans 'Name' %}</label>
                                 <input type="text" class="form-control" name="name" required="" aria-required="true"
-                                       placeholder="Inform the name of your Resource">
+                                       placeholder="{% trans 'Inform the name of your Resource' %}">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="form-line">
-                                <label>Description</label>
+                                <label>{% trans 'Description' %}</label>
                                 <textarea rows="4" class="form-control no-resize" name="description" required=""
-                                          aria-required="true" placeholder="Describe youer Resource here"></textarea>
+                                          aria-required="true" placeholder="{% trans 'Describe your Resource here' %}"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group align-right">
                             <button type="submit" class="btn bg-teal waves-effect ">
                                 <i class="material-icons">done</i>
-                                <span>FINISH</span>
+                                <span>{% trans 'FINISH' %}</span>
                             </button>
                         </div>
 

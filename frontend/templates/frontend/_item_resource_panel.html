@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% for resource in resources %}
 
     <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
@@ -23,25 +25,25 @@
 
                             <a type="button" href="{% url 'frontend:resource_edit' resource.id %}"
                                class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                               title="Edit">
+                               title="{% trans 'Edit' %}">
                                 <i class="material-icons">mode_edit</i>
                             </a>
 
                             <a type="button" href="{% url 'frontend:data_dictionary_resource' resource.id %}"
                                class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                               title="Data Dictionary">
+                               title="{% trans 'Data Dictionary' %}">
                                 <i class="material-icons">assignment</i>
                             </a>
 
                             <a type="button" href="{% url 'frontend:schedule_resource' resource.id %}"
                                class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                               title="Schedule">
+                               title="{% trans 'Schedule' %}">
                                 <i class="material-icons">alarm_add</i>
                             </a>
 
                             <a type="button" href="{% url 'frontend:resource_notification' resource.id %}"
                                class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                               title="Notification">
+                               title="{% trans 'Notification' %}">
                                 <i class="material-icons">email</i>
                             </a>
 
@@ -75,22 +77,22 @@
             <div class="body">
 
                 <div class="form-group">
-                    <labe><b>Description:</b></labe>
+                    <labe><b>{% trans 'Description:' %}</b></labe>
                     <br>
                     {{ resource.description | truncatechars:140 }}
                 </div>
 
                 <div class="form-group">
-                    <b>Scheduled to:</b>
+                    <b>{% trans 'Scheduled to:' %}</b>
                     {% if resource.get_last_schedule %}
                         {{ resource.get_last_schedule.schedule_date_time | date:"d/m/Y" }}
                         (EVERY {{ resource.schedule_type }})</br>
                     {% else %}
-                        Not scheduled
+                        {% trans 'Not scheduled' %}
                     {% endif %}
 
                     {% if resource.get_last_success_schedule %}
-                        <b>Last update: </b>{{ resource.get_last_success_schedule.schedule_date_time | date:"d/m/Y" }}
+                        <b>{%  trans 'Last update:' %} </b>{{ resource.get_last_success_schedule.schedule_date_time | date:"d/m/Y" }}
                     {% endif %}
                 </div>
 

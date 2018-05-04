@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html>
@@ -104,18 +105,18 @@
             <!-- Menu -->
             <div class="menu">
                 <ul class="list">
-                    <li class="header">MAIN NAVIGATION</li>
+                    <li class="header">{% trans 'MAIN NAVIGATION' %}</li>
 
                     <li class="{% if request.path == "/index/resources/" %}active{% endif %}">
                         <a class="toggled waves-effect waves-block" href="{% url 'frontend:panel_resource' %}">
                             <i class="material-icons">view_list</i>
-                            <span>Resources Panel</span>
+                            <span>{%  trans 'Resources Panel' %}</span>
                         </a>
                     </li>
                     <li class="{% if request.path == "/index/resource/" or request.path == "/index/resource/produto/columns/" or request.path == "/index/resource/produto/create/" %}active{% endif %}">
                         <a class="toggled waves-effect waves-block" href="{% url 'frontend:add_resource' %}">
                             <i class="material-icons">add_circle_outline</i>
-                            <span>Add new Resource</span>
+                            <span>{% trans 'Add new Resource' %}</span>
                         </a>
                     </li>
                 </ul>
@@ -128,7 +129,7 @@
                 </div>
                 -->
                 <div class="version">
-                    <b>Version: </b> 0.1.0
+                    <b>{% trans 'Version' %}: </b> 0.1.0
                 </div>
             </div>
             <!-- #Menu -->
@@ -154,6 +155,9 @@
 
 <!-- Bootstrap Core Js -->
 <script src="{% static 'frontend/plugins/bootstrap/js/bootstrap.js' %}"></script>
+
+<!-- Moment Plugin Js -->
+<script src="{% static 'frontend/plugins/momentjs/moment.js' %}"></script>
 
 <!-- Waves Effect Plugin Js -->
 <script src="{% static 'frontend/plugins/node-waves/waves.js' %}"></script>

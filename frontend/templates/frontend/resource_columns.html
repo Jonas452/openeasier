@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% load staticfiles %}
 
@@ -23,8 +24,8 @@
 
                 <div class="header">
                     <h2>
-                        CHOOSE THE COLUMNS OF THE RESOURCE
-                        <small>for table <b>{ {{ table_name }} }</b> in database <b>{ {{ database.title }} }</b></small>
+                        {% trans 'CHOOSE THE COLUMNS OF THE RESOURCE' %}
+                        <small> {% trans 'for table' %} <b>{ {{ table_name }} }</b> {% trans 'in database' %} <b>{ {{ database.title }} }</b></small>
                     </h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
@@ -33,7 +34,7 @@
                                 <i class="material-icons">more_vert</i>
                             </a>
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">HELP</a></li>
+                                <li><a href="javascript:void(0);">{%  trans 'HELP' %}</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -91,7 +92,7 @@
                         <div class="form-group align-right">
                             <button type="submit" class="btn bg-teal waves-effect ">
                                 <i class="material-icons">navigate_next</i>
-                                <span>CONTINUE</span>
+                                <span>{% trans 'CONTINUE' %}</span>
                             </button>
                         </div>
 
