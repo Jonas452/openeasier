@@ -38,7 +38,7 @@ class DataDictionary:
             self.create_dictionary()
 
             Log.register('Sending data dictionary file', self.resource_schedule, PublicationLog.SUCCESS_TAG)
-            self.upload_dictionar()
+            self.upload_dictionary()
 
     def create_dictionary(self):
         self.file = self.parcial_path + "/dictionary_" + self.table.name + ".pdf"

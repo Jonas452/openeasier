@@ -39,9 +39,10 @@
                         <div class="form-group">
                             <div class="form-line">
                                 <label>{% trans 'Resource Data Dictionary Description' %}</label>
-                                <input type="text" value="{{ data_dictionary.description|default_if_none:"" }}"
-                                           class="form-control" name="dd_description">
+                                <textarea rows="2"  value="{{ data_dictionary.description|default_if_none:"" }}"
+                                           class="form-control no-resize" name="dd_description" >{{ data_dictionary.description|default_if_none:"" }}</textarea>
                             </div>
+
                         </div>
 
                         <h4>{% trans 'Describe the columns:' %}</h4>
@@ -59,12 +60,12 @@
 
                         <div class="form-group">
                             <a href="{% url 'frontend:panel_resource' %}" class="btn bg-teal waves-effect">
-                                <i class="material-icons">arrow_back</i>
-                                <span>{% trans 'BACK' %}</span>
+                                <i class="material-icons">cancel</i>
+                                <span>CANCELAR</span>
                             </a>
                             <button type="submit" class="btn bg-teal waves-effect">
                                 <i class="material-icons">done</i>
-                                <span>{% trans 'FINISH' %}</span>
+                                <span>SALVAR</span>
                             </button>
                         </div>
 

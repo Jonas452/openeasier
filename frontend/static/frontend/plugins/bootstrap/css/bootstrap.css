@@ -3655,6 +3655,7 @@ tbody.collapse.in {
 .btn-group-vertical > .btn {
   position: relative;
   float: left;
+  padding: 5px;
 }
 .btn-group > .btn:hover,
 .btn-group-vertical > .btn:hover,

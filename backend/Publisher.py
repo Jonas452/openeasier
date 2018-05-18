@@ -1,6 +1,7 @@
 import os
 import django
 import datetime
+import time
 
 os.environ["DJANGO_SETTINGS_MODULE"] = 'openeasier.settings'
 django.setup()
@@ -13,18 +14,22 @@ from backend.Scheduler import Scheduler
 class Publisher:
     def __init__(self):
 
-        now = datetime.datetime.now()
-        now = now.strftime("%Y-%m-%d")
+        while True:
 
-        resources = ResourceSchedule.objects.filter(schedule_date_time=now)
-        resources = resources.filter(execution_status=ResourceSchedule.STATUS_SCHEDULED)
+            now = datetime.datetime.now()
+            now = now.strftime("%Y-%m-%d")
 
-        for resource_schedule in resources:
+            resources = ResourceSchedule.objects.filter(schedule_date_time=now)
+            resources = resources.filter(execution_status=ResourceSchedule.STATUS_SCHEDULED)
 
-            pipeline = Pipeline(resource_schedule)
-            pipeline.execute()
+            for resource_schedule in resources:
 
-        Scheduler.schedule_all_resources()
+                pipeline = Pipeline(resource_schedule)
+                pipeline.execute()
+
+            Scheduler.schedule_all_resources()
+
+            time.sleep(30)
 
 
 Publisher()

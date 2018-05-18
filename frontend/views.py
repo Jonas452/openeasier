@@ -566,14 +566,20 @@ class ResourceDataQualityAssessmentView(View):
         resource_schedule = resource_schedule.exclude(execution_status=ResourceSchedule.STATUS_SCHEDULED)
         resource_schedule = resource_schedule.last()
 
-        data_quality = DataQuality(resource_id)
+        if resource.ckan_resource_id != '':
+            data_quality = DataQuality(resource_id)
 
-        PARAMETERS = {
-            'resource': resource,
-            'resource_schedule': resource_schedule,
-            'columns_missing_data': data_quality.columns_missing_data_(),
-            'columns_format_consistency': data_quality.columns_format_consistency(),
-        }
+            PARAMETERS = {
+                'resource': resource,
+                'resource_schedule': resource_schedule,
+                'columns_missing_data': data_quality.columns_missing_data_(),
+                'columns_format_consistency': data_quality.columns_format_consistency(),
+            }
+        else:
+            PARAMETERS = {
+                'resource': resource,
+                'resource_schedule': resource_schedule,
+            }
 
         return render(request, self.template_name, PARAMETERS)
 

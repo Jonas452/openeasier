@@ -13,18 +13,21 @@ from common.models import Resource, CKANInstance, DBColumn, DBTable
 class DataQuality:
 
     def __init__(self, resource_id):
+
         self.resource = Resource.objects.get(id=resource_id)
-        self.ckan_instance = CKANInstance.objects.get(id=self.resource.ckan.id)
 
-        self.my_ckan = RemoteCKAN(self.ckan_instance.url)
+        if self.resource.ckan_resource_id != '':
+            self.ckan_instance = CKANInstance.objects.get(id=self.resource.ckan.id)
 
-        temp_resource = self.my_ckan.action.resource_show(id=self.resource.ckan_resource_id)
-        url = (temp_resource.get("url")).replace("http://localhost/", self.ckan_instance.url)
+            self.my_ckan = RemoteCKAN(self.ckan_instance.url)
 
-        self.data = pd.read_csv(url, encoding="ISO-8859-1")
+            temp_resource = self.my_ckan.action.resource_show(id=self.resource.ckan_resource_id)
+            url = (temp_resource.get("url")).replace("http://localhost/", self.ckan_instance.url)
 
-        self.data_len = len(self.data)
-        self.remove_ids_and_fks()
+            self.data = pd.read_csv(url, encoding="ISO-8859-1")
+
+            self.data_len = len(self.data)
+            self.remove_ids_and_fks()
 
     def remove_ids_and_fks(self):
 

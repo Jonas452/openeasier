@@ -170,10 +170,10 @@ class Resource(TimeStampedModel):
     TYPE_YEAR = 'YEAR'
 
     SCHEDULE_TYPES = (
-        (TYPE_DAY, 'EVERY DAY'),
-        (TYPE_WEEK, 'EVERY WEEK'),
-        (TYPE_MONTH, 'EVERY MONTH'),
-        (TYPE_YEAR, 'EVERY YEAR'),
+        (TYPE_DAY, 'DIARIAMENTE'),
+        (TYPE_WEEK, 'SEMANALMENTE'),
+        (TYPE_MONTH, 'MENSALMENTE'),
+        (TYPE_YEAR, 'ANUALMENTE'),
     )
 
     schedule_type = models.CharField(

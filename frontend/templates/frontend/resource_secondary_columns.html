@@ -25,7 +25,8 @@
                 <div class="header">
                     <h2>
                         {% trans 'CHOOSE THE SECONDARY COLUMNS OF THE RESOURCE' %}
-                        <small>{% trans 'for table' %} <b>{ {{ table_name }} }</b> {% trans 'in database' %} <b>{ {{ database.title }} }</b></small>
+                        <small>{% trans 'for table' %} <b>{ {{ table_name }} }</b> {% trans 'in database' %}
+                            <b>{ {{ database.title }} }</b></small>
                     </h2>
                     <ul class="header-dropdown m-r--5">
                         <li class="dropdown">
@@ -66,10 +67,12 @@
 
                                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
 
-                                        <input type="hidden" name="key_{{ table.table_primary_key }}_table_{{ table.table_name }}"
+                                        <input type="hidden"
+                                               name="key_{{ table.table_primary_key }}_table_{{ table.table_name }}"
                                                value="key_{{ table.table_primary_key }}_table_{{ table.table_name }}"/>
 
-                                        <input type="hidden" name="fkey_{{ table.table_fk_column }}_table_{{ table.table_name }}"
+                                        <input type="hidden"
+                                               name="fkey_{{ table.table_fk_column }}_table_{{ table.table_name }}"
                                                value="fkey_{{ table.table_fk_column }}_table_{{ table.table_name }}"/>
 
                                         <thead>
@@ -91,7 +94,11 @@
 
                                             <tr>
                                                 {% for value in item.values %}
-                                                    <td>{{ value | truncatechars:100 }}</td>
+                                                    {% if value != None %}
+                                                        <td>{{ value | truncatechars:100 }}</td>
+                                                    {% else %}
+                                                        <td></td>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </tr>
 

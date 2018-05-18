@@ -1,101 +1,124 @@
 {% load i18n %}
 
 {% for resource in resources %}
-
     <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
         <div class="card">
-            <div class="header">
-                <div class="row clearfix">
-                    <div class="col-xs-12 col-sm-6">
-                        <h2>
-                            {% if resource.ckan_resource_id %}
-                                {{ resource.name }}
+            <div class="body bg-white">
 
-                                </a>
-                            {% else %}
-                                {{ resource.name }}
-                            {% endif %}
+                <div class="row clearfix">
+
+                    <div class="col-sm-8">
+
+                        <div style="margin-bottom: 25px;">
+                            <h4>
+                                {% if resource.ckan_resource_id %}
+                                    {{ resource.name }}
+
+                                    </a>
+                                {% else %}
+                                    {{ resource.name }}
+                                {% endif %}
+
+                            </h4>
+
                             <small><a href="{{ resource.ckan.url }}" target="_blank">{{ resource.ckan.name }}
                                 - {{ resource.ckan.url }}</a></small>
-                        </h2>
+                        </div>
+
+                        <div>
+                            <div style="margin-bottom: 5px">
+                                <labe><b>{% trans 'Description:' %}</b></labe>
+                                <br>
+                                {{ resource.description | truncatechars:140 }}
+                            </div>
+
+                            <div>
+                                <b>{% trans 'Scheduled to:' %}</b> </br>
+                                {% if resource.get_last_schedule %}
+                                    {{ resource.get_last_schedule.schedule_date_time | date:"d/m/Y" }}
+
+                                    {% if resource.schedule_type == 'DAY' %}
+                                        (DIARIAMENTE)
+                                    {% elif resource.schedule_type == 'WEEK' %}
+                                        (SEMANALMENTE)
+                                    {% elif resource.schedule_type == 'MONTH' %}
+                                        (MENSALMENTE)
+                                    {% elif resource.schedule_type == 'YEAR' %}
+                                        (ANUALMENTE)
+                                    {% endif %}
+
+                                    </br>
+                                {% else %}
+                                    {% trans 'Not scheduled' %}
+                                {% endif %}
+
+                                {% if resource.get_last_success_schedule %}
+                                    <b>{% trans 'Last update:' %} </b>
+                                    {{ resource.get_last_success_schedule.schedule_date_time | date:"d/m/Y" }}
+                                {% endif %}
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div class="col-xs-12 col-sm-6">
-                        <div class="btn-group" role="group">
+                    <div class="col-sm-4" >
 
-                            <a type="button" href="{% url 'frontend:resource_edit' resource.id %}"
-                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                               title="{% trans 'Edit' %}">
-                                <i class="material-icons">mode_edit</i>
-                            </a>
+                                <div class="btn-group-vertical" role="group">
 
-                            <a type="button" href="{% url 'frontend:data_dictionary_resource' resource.id %}"
-                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                               title="{% trans 'Data Dictionary' %}">
-                                <i class="material-icons">assignment</i>
-                            </a>
+                                    <a type="button" href="{% url 'frontend:resource_edit' resource.id %}"
+                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                                       title="{% trans 'Edit' %}" style="padding: 1px 5px">
+                                        <i class="material-icons">mode_edit</i>
+                                        <span style="font-size: 13px;">{% trans 'Edit' %}</span>
+                                    </a>
 
-                            <a type="button" href="{% url 'frontend:schedule_resource' resource.id %}"
-                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                               title="{% trans 'Schedule' %}">
-                                <i class="material-icons">alarm_add</i>
-                            </a>
+                                    <a type="button" href="{% url 'frontend:data_dictionary_resource' resource.id %}"
+                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                                       title="{% trans 'Data Dictionary' %}">
+                                        <i class="material-icons" style="padding: 1px 5px">assignment</i>
+                                        <span style="font-size: 13px;">Dicionário</span>
+                                    </a>
 
-                            <a type="button" href="{% url 'frontend:resource_notification' resource.id %}"
-                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                               title="{% trans 'Notification' %}">
-                                <i class="material-icons">email</i>
-                            </a>
+                                    <a type="button" href="{% url 'frontend:schedule_resource' resource.id %}"
+                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                                       title="{% trans 'Schedule' %}">
+                                        <i class="material-icons" style="padding: 1px 5px">alarm_add</i>
+                                        <span style="font-size: 13px;">{% trans 'Schedule' %}</span>
+                                    </a>
+
+                                    <a type="button" href="{% url 'frontend:resource_notification' resource.id %}"
+                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                                       title="{% trans 'Notification' %}">
+                                        <i class="material-icons" style="padding: 1px 5px">email</i>
+                                        <span style="font-size: 13px;">{% trans 'Notification' %}</span>
+                                    </a>
+
+                                    <a type="button" href="{% url 'frontend:resource_log' resource.id %}"
+                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                                       title="Log">
+                                        <i class="material-icons" style="padding: 1px 5px">subject</i>
+                                        <span style="font-size: 13px;">{% trans 'Log' %}</span>
+                                    </a>
+
+                                    <a type="button" href="{% url 'frontend:data_quality_resource' resource.id %}"
+                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                                       title="{% trans 'Data Quality Feedback' %}">
+                                        <i class="material-icons" style="padding: 1px 5px">assessment</i>
+                                        <span style="font-size: 13px;">Qualidade Dados</span>
+                                    </a>
+
+                                    <a type="button" href="{{ resource.resource_url }}" target="_blank"
+                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                                       title="Link">
+                                        <i class="material-icons" style="padding: 1px 5px">link</i>
+                                        <span style="font-size: 13px;">{% trans 'Link' %}</span>
+                                    </a>
 
                         </div>
 
-                        <div class="btn-group" role="group">
-
-                            <a type="button" href="{% url 'frontend:resource_log' resource.id %}"
-                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                               title="Log">
-                                <i class="material-icons">subject</i>
-                            </a>
-
-                            <a type="button" href="{%  url 'frontend:data_quality_resource' resource.id %}"
-                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                               title="Data Quality Feedback">
-                                <i class="material-icons">assessment</i>
-                            </a>
-
-                            <a type="button" href="{{ resource.resource_url }}" target="_blank"
-                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                               title="Link">
-                                <i class="material-icons">link</i>
-                            </a>
-
-                        </div>
                     </div>
+
                 </div>
-            </div>
-
-            <div class="body">
-
-                <div class="form-group">
-                    <labe><b>{% trans 'Description:' %}</b></labe>
-                    <br>
-                    {{ resource.description | truncatechars:140 }}
-                </div>
-
-                <div class="form-group">
-                    <b>{% trans 'Scheduled to:' %}</b>
-                    {% if resource.get_last_schedule %}
-                        {{ resource.get_last_schedule.schedule_date_time | date:"d/m/Y" }}
-                        (EVERY {{ resource.schedule_type }})</br>
-                    {% else %}
-                        {% trans 'Not scheduled' %}
-                    {% endif %}
-
-                    {% if resource.get_last_success_schedule %}
-                        <b>{%  trans 'Last update:' %} </b>{{ resource.get_last_success_schedule.schedule_date_time | date:"d/m/Y" }}
-                    {% endif %}
-                </div>
-
 
             </div>
         </div>

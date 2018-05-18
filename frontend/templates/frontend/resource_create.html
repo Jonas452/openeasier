@@ -79,13 +79,13 @@
                         <input type="hidden" name="table_schema" value="{{ table_schema }}"/>
                         <input type="hidden" name="primary_key" value="{{ primary_key }}"/>
 
-                        <h4>{% trans 'Basic Information' %}</h4>
+                        <h4>{% trans 'Basic Information' %}</h4> </br>
 
                         <div class="form-group">
                             <div class="form-line">
                                 <label class="">{% trans 'CKAN Dataset' %}</label> <br>
-                                <select name="dataset" class="form-control show-tick">
-                                    <option value="0">-- {% trans 'Select a option' %} --</option>
+                                <select name="dataset" class="form-control show-tick" required>
+                                    <option disabled selected value>-- {% trans 'Select a option' %} --</option>
                                     {% for dataset in datasets %}
                                         <option value="{{ dataset }}">{{ dataset }}</option>
                                     {% endfor %}

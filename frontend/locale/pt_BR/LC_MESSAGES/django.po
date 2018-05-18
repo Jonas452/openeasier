@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-04 14:46-0300\n"
+"POT-Creation-Date: 2018-05-16 21:51-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,10 +22,6 @@ msgstr ""
 msgid "MAIN NAVIGATION"
 msgstr "BARRA NAVEGAÇÃO"
 
-#: .\frontend\templates\base.html:113
-msgid "Resources Panel"
-msgstr "Painel de Dados"
-
 #: .\frontend\templates\base.html:119
 msgid "Add new Resource"
 msgstr "Publicar Dados"
@@ -34,37 +30,66 @@ msgstr "Publicar Dados"
 msgid "Version"
 msgstr "Versão"
 
-#: .\frontend\templates\frontend\_item_resource_panel.html:28
+#: .\frontend\templates\frontend\_item_resource_panel.html:40
+#: .\frontend\templates\frontend\_item_resource_panel.html:42
 msgid "Edit"
 msgstr "Atualizar"
 
-#: .\frontend\templates\frontend\_item_resource_panel.html:34
+#: .\frontend\templates\frontend\_item_resource_panel.html:47
 msgid "Data Dictionary"
 msgstr "Dicionário de Dados"
 
-#: .\frontend\templates\frontend\_item_resource_panel.html:40
+#: .\frontend\templates\frontend\_item_resource_panel.html:49
 #, fuzzy
-#| msgid "Scheduled to:"
-msgid "Schedule"
-msgstr "Agendado para:"
+#| msgid "Data Dictionary"
+msgid "Dictionary"
+msgstr "Dicionário"
 
-#: .\frontend\templates\frontend\_item_resource_panel.html:46
+#: .\frontend\templates\frontend\_item_resource_panel.html:54
+#: .\frontend\templates\frontend\_item_resource_panel.html:56
+msgid "Schedule"
+msgstr "Agendar"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:61
+#: .\frontend\templates\frontend\_item_resource_panel.html:63
 msgid "Notification"
 msgstr "Notificação"
 
-#: .\frontend\templates\frontend\_item_resource_panel.html:80
+#: .\frontend\templates\frontend\_item_resource_panel.html:70
+msgid "Log"
+msgstr "Log"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:75
+msgid "Data Quality Feedback"
+msgstr "Feedback de Qualidade de Dados"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:77
+#, fuzzy
+#| msgid "Data Quality Feedback"
+msgid "Data Quality"
+msgstr "Qualidade Dados"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:84
+msgid "Link"
+msgstr "URL"
+
+#: .\frontend\templates\frontend\_item_resource_panel.html:97
+#: .\frontend\templates\frontend\_item_resource_panel.html:171
 msgid "Description:"
 msgstr "Descrição"
 
-#: .\frontend\templates\frontend\_item_resource_panel.html:86
+#: .\frontend\templates\frontend\_item_resource_panel.html:103
+#: .\frontend\templates\frontend\_item_resource_panel.html:177
 msgid "Scheduled to:"
 msgstr "Agendado para:"
 
-#: .\frontend\templates\frontend\_item_resource_panel.html:91
+#: .\frontend\templates\frontend\_item_resource_panel.html:119
+#: .\frontend\templates\frontend\_item_resource_panel.html:193
 msgid "Not scheduled"
 msgstr "Não agendado"
 
-#: .\frontend\templates\frontend\_item_resource_panel.html:95
+#: .\frontend\templates\frontend\_item_resource_panel.html:123
+#: .\frontend\templates\frontend\_item_resource_panel.html:197
 msgid "Last update:"
 msgstr "Última atualização"
 
@@ -101,12 +126,12 @@ msgstr "no banco de dados"
 #: .\frontend\templates\frontend\resource_notification.html:44
 #: .\frontend\templates\frontend\resource_schedule.html:32
 #: .\frontend\templates\frontend\resource_search.html:29
-#: .\frontend\templates\frontend\resource_secondary_columns.html:37
+#: .\frontend\templates\frontend\resource_secondary_columns.html:38
 msgid "HELP"
 msgstr "AJUDA"
 
-#: .\frontend\templates\frontend\resource_columns.html:95
-#: .\frontend\templates\frontend\resource_secondary_columns.html:111
+#: .\frontend\templates\frontend\resource_columns.html:108
+#: .\frontend\templates\frontend\resource_secondary_columns.html:118
 msgid "CONTINUE"
 msgstr "CONTINUAR"
 
@@ -129,7 +154,7 @@ msgstr "Conjundo de Dados do CKAN"
 
 #: .\frontend\templates\frontend\resource_create.html:88
 msgid "Select a option"
-msgstr "Selecionar Opção"
+msgstr "SELECIONAR OPÇÃO"
 
 #: .\frontend\templates\frontend\resource_create.html:98
 #: .\frontend\templates\frontend\resource_edit.html:60
@@ -276,10 +301,6 @@ msgstr "AGENDAR RECURSO"
 msgid "Date of first execution"
 msgstr "Data da primeira execução"
 
-#: .\frontend\templates\frontend\resource_schedule.html:57
-msgid "Please choose a date..."
-msgstr "Por favor, escolha uma data"
-
 #: .\frontend\templates\frontend\resource_schedule.html:64
 msgid "Frequency"
 msgstr "Frequência"
@@ -375,6 +396,17 @@ msgstr "Notificação do recurso excluída com sucesso!"
 #: .\frontend\views.py:531
 msgid "Error while deleting the resource notification."
 msgstr "Erro ao excluír a notificação do recurso."
+
+#, fuzzy
+#~| msgid "Add new Resource"
+#~ msgid "Panel of Resources"
+#~ msgstr "Painel de Recursos"
+
+#~ msgid "Resources Panel"
+#~ msgstr "Painel de Recursos"
+
+#~ msgid "Please choose a date..."
+#~ msgstr "Por favor, escolha uma data"
 
 #~ msgid "Describe youer Resource here"
 #~ msgstr "Descreva o Recurso"

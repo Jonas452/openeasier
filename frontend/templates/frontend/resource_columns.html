@@ -79,11 +79,24 @@
 
                                     <tr>
                                         {% for value in item.values %}
-                                            <td>{{ value | truncatechars:100 }}</td>
+                                            {% if value != None %}
+                                                <td>{{ value | truncatechars:100 }}</td>
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
                                         {% endfor %}
                                     </tr>
 
                                 {% endfor %}
+                                 <thead>
+                                <tr>
+                                    {% for column in columns %}
+                                        <th>
+                                           <label for="column_{{ column.name }}"><b>{{ column.verbose_name }}</b></label>
+                                        </th>
+                                    {% endfor %}
+                                </tr>
+                                </thead>
                                 </tbody>
 
                             </table>
