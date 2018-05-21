@@ -1,9 +1,9 @@
 {% load i18n %}
 
 {% for resource in resources %}
-    <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="card">
-            <div class="body bg-white">
+            <div class="body bg-white" style="padding-bottom: 1px;">
 
                 <div class="row clearfix">
 
@@ -61,58 +61,62 @@
 
                     </div>
 
-                    <div class="col-sm-4" >
+                    <div class="col-sm-4">
 
-                                <div class="btn-group-vertical" role="group">
+                        <div class="btn-group-vertical" role="group">
 
-                                    <a type="button" href="{% url 'frontend:resource_edit' resource.id %}"
-                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                                       title="{% trans 'Edit' %}" style="padding: 1px 5px">
-                                        <i class="material-icons">mode_edit</i>
-                                        <span style="font-size: 13px;">{% trans 'Edit' %}</span>
-                                    </a>
+                            <a type="button" href="{% url 'frontend:resource_edit' resource.id %}"
+                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                               title="{% trans 'Edit' %}" style="text-align: left;">
 
-                                    <a type="button" href="{% url 'frontend:data_dictionary_resource' resource.id %}"
-                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                                       title="{% trans 'Data Dictionary' %}">
-                                        <i class="material-icons" style="padding: 1px 5px">assignment</i>
-                                        <span style="font-size: 13px;">Dicionário</span>
-                                    </a>
+                                <i class="material-icons" style="padding:1px 5px;">mode_edit</i>
+                                <span>{% trans 'Edit' %}</span>
 
-                                    <a type="button" href="{% url 'frontend:schedule_resource' resource.id %}"
-                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                                       title="{% trans 'Schedule' %}">
-                                        <i class="material-icons" style="padding: 1px 5px">alarm_add</i>
-                                        <span style="font-size: 13px;">{% trans 'Schedule' %}</span>
-                                    </a>
+                            </a>
 
-                                    <a type="button" href="{% url 'frontend:resource_notification' resource.id %}"
-                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                                       title="{% trans 'Notification' %}">
-                                        <i class="material-icons" style="padding: 1px 5px">email</i>
-                                        <span style="font-size: 13px;">{% trans 'Notification' %}</span>
-                                    </a>
+                            <a type="button" href="{% url 'frontend:data_dictionary_resource' resource.id %}"
+                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                               title="{% trans 'Data Dictionary' %}" style="text-align: left;">
+                                <i class="material-icons" style="padding: 1px 5px;">assignment</i>
+                                <span>Dicionário</span>
+                            </a>
 
-                                    <a type="button" href="{% url 'frontend:resource_log' resource.id %}"
-                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                                       title="Log">
-                                        <i class="material-icons" style="padding: 1px 5px">subject</i>
-                                        <span style="font-size: 13px;">{% trans 'Log' %}</span>
-                                    </a>
+                            <a type="button" href="{% url 'frontend:schedule_resource' resource.id %}"
+                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                               title="{% trans 'Schedule' %}" style="text-align: left;">
+                                <i class="material-icons" style="padding: 1px 5px">alarm_add</i>
+                                <span style="font-size: 13px;">{% trans 'Schedule' %}</span>
+                            </a>
 
-                                    <a type="button" href="{% url 'frontend:data_quality_resource' resource.id %}"
-                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                                       title="{% trans 'Data Quality Feedback' %}">
-                                        <i class="material-icons" style="padding: 1px 5px">assessment</i>
-                                        <span style="font-size: 13px;">Qualidade Dados</span>
-                                    </a>
+                            <a type="button" href="{% url 'frontend:resource_notification' resource.id %}"
+                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                               title="{% trans 'Notification' %}" style="text-align: left;">
+                                <i class="material-icons" style="padding: 1px 5px">email</i>
+                                <span style="font-size: 13px;">{% trans 'Notification' %}</span>
+                            </a>
 
-                                    <a type="button" href="{{ resource.resource_url }}" target="_blank"
-                                       class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
-                                       title="Link">
-                                        <i class="material-icons" style="padding: 1px 5px">link</i>
-                                        <span style="font-size: 13px;">{% trans 'Link' %}</span>
-                                    </a>
+                            <a type="button" href="{% url 'frontend:resource_log' resource.id %}"
+                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                               title="Log" style="text-align: left;">
+                                <i class="material-icons" style="padding: 1px 5px">subject</i>
+                                <span style="font-size: 13px;">{% trans 'Log' %}</span>
+                            </a>
+
+                            <a type="button" href="{% url 'frontend:data_quality_resource' resource.id %}"
+                               class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                               title="{% trans 'Data Quality Feedback' %}" style="text-align: left;">
+                                <i class="material-icons" style="padding: 1px 5px">assessment</i>
+                                <span style="font-size: 13px;">Qualidade Dados</span>
+                            </a>
+
+                            {% if resource.ckan_resource_id != "" %}
+                                <a type="button" href="{{ resource.resource_url }}" target="_blank"
+                                   class="btn bg-teal waves-effect" data-toggle="tooltip" data-placement="right"
+                                   title="Link" style="text-align: left;">
+                                    <i class="material-icons" style="padding: 1px 5px">link</i>
+                                    <span style="font-size: 13px;">{% trans 'Link' %}</span>
+                                </a>
+                            {% endif %}
 
                         </div>
 
